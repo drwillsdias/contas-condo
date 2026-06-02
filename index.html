@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Financeiro · Varandas do Tocantins</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0c0e18;
+      --surface:  #151826;
+      --surface2: #1c2033;
+      --border:   #252840;
+      --text:     #e2e8f0;
+      --muted:    #6b7591;
+      --muted2:   #8892a4;
+      --green:    #22c55e;
+      --red:      #ef4444;
+      --blue:     #3b82f6;
+      --yellow:   #f59e0b;
+      --teal:     #14b8a6;
+      --accent:   #6366f1;
+      --orange:   #f97316;
+      --r:        10px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ════════════════════════════════════ HEADER ══ */
+    header {
+      background: linear-gradient(135deg,#181b2e 0%,#111320 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hd-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -.3px;
+    }
+    .hd-name span { color: var(--accent); }
+    .hd-chips {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .hd-chip {
+      font-size: .68rem;
+      color: var(--muted2);
+    }
+    .hd-chip strong { color: var(--text); font-weight: 600; }
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 99px;
+      letter-spacing: .6px;
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════ SHELL ══ */
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* ════════════════════════════════════ SIDEBAR ══ */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    .sidebar-label {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: var(--muted);
+      padding: 16px 0 10px;
+    }
+
+    /* ── iOS-style drum picker ── */
+    .picker-outer {
+      position: relative;
+      width: 100%;
+      height: 336px;   /* 7 items × 48px */
+      overflow: hidden;
+      cursor: ns-resize;
+      touch-action: none;
+    }
+    /* Gradiente forte nas bordas para sensação de profundidade */
+    .picker-fade-top {
+      position: absolute; top: 0; left: 0; right: 0; height: 130px;
+      background: linear-gradient(to bottom, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
+      pointer-events: none; z-index: 2;
+    }
+    .picker-fade-bot {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 130px;
+      background: linear-gradient(to top, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
+      pointer-events: none; z-index: 2;
+    }
+    /* Cápsula de seleção — destaque do item ativo */
+    .picker-pill {
+      position: absolute;
+      left: 14px; right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 48px;
+      background: rgba(99,102,241,.13);
+      border: 1.5px solid rgba(99,102,241,.4);
+      border-radius: 12px;
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: 0 0 16px rgba(99,102,241,.12);
+    }
+    .picker-list {
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      will-change: transform;
+    }
+    .picker-item {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: .3px;
+      user-select: none;
+      position: relative;
+      top: -24px; /* compensate for top:50% */
+      /* transitions individuais via JS inline style */
+    }
+
+    /* ── Month quick stats ── */
+    .sidebar-stats {
+      flex: 1;
+      width: 100%;
+      padding: 14px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+    .ss-label {
+      font-size: .6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .ss-value {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .ss-sub {
+      font-size: .65rem;
+      color: var(--muted2);
+      margin-top: 3px;
+    }
+    .ss-divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ════════════════════════════════════ MAIN ══ */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px 48px;
+      min-width: 0;
+    }
+
+    /* ── Section label ── */
+    .sec {
+      font-size: .63rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin: 0 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mb24 { margin-bottom: 24px; }
+    .mb16 { margin-bottom: 16px; }
+
+    /* ── KPI grid ── */
+    .kpi-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .kpi-grid-4 { grid-template-columns: repeat(4,1fr); }
+    .kpi-grid-3 { grid-template-columns: repeat(3,1fr); }
+    .kpi-grid-2 { grid-template-columns: repeat(2,1fr); }
+    @media (max-width:1100px) { .kpi-grid-4 { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:700px)  { .kpi-grid-4,.kpi-grid-3,.kpi-grid-2 { grid-template-columns:1fr; } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 18px;
+    }
+    .card-label {
+      font-size: .63rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted2);
+      margin-bottom: 6px;
+    }
+    .card-value { font-size: 1.45rem; font-weight: 700; line-height: 1; }
+    .card-sub   { font-size: .68rem; color: var(--muted2); margin-top: 5px; }
+    .card-note  { font-size: .62rem; color: var(--muted); margin-top: 3px; font-style:italic; }
+
+    /* color utils */
+    .c-green  { color: var(--green); }
+    .c-red    { color: var(--red);   }
+    .c-blue   { color: var(--blue);  }
+    .c-yellow { color: var(--yellow);}
+    .c-teal   { color: var(--teal);  }
+    .c-orange { color: var(--orange);}
+    .c-accent { color: var(--accent);}
+    .c-muted  { color: var(--muted2);}
+
+    /* ── Alert banner ── */
+    .banner {
+      border-radius: var(--r);
+      border: 1px solid;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .banner.neg { background:linear-gradient(135deg,#2a1515,#1a0f0f); border-color:#5a2d2d; }
+    .banner.pos { background:linear-gradient(135deg,#152a15,#0f1a0f); border-color:#2d5a2d; }
+    .banner.warn{ background:linear-gradient(135deg,#2a2015,#1a150f); border-color:#5a4a2d; }
+    .banner-row { display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+    .banner-block { flex:1; min-width:160px; }
+    .banner-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.7px; margin-bottom:4px; }
+    .banner.neg .banner-label { color:#f87171; }
+    .banner.pos .banner-label { color:#4ade80; }
+    .banner.warn .banner-label { color:#fbbf24; }
+    .banner-val   { font-size:1.6rem; font-weight:800; }
+    .banner.neg .banner-val { color:var(--red); }
+    .banner.pos .banner-val { color:var(--green); }
+    .banner.warn .banner-val{ color:var(--yellow); }
+    .banner-note  { font-size:.65rem; color:var(--muted2); margin-top:4px; }
+
+    /* ── Caixa cards especiais ── */
+    .caixa-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (max-width:700px) { .caixa-grid { grid-template-columns:1fr; } }
+
+    .caixa-card {
+      background: var(--surface2);
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+    .caixa-card .cc-title {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted2);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-teal   { background: var(--teal);  }
+    .dot-yellow { background: var(--yellow);}
+    .dot-red    { background: var(--red);   }
+    .dot-green  { background: var(--green); }
+    .cc-total { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .cc-accounts { display:flex; flex-direction:column; gap:4px; }
+    .cc-account {
+      display: flex;
+      justify-content: space-between;
+      font-size: .72rem;
+      color: var(--muted2);
+      padding: 3px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cc-account:last-child { border-bottom: none; }
+    .cc-account .cn { color: var(--text); }
+
+    /* ── Charts ── */
+    .charts-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .cg-2 { grid-template-columns: 1fr 1fr; }
+    .cg-3 { grid-template-columns: 2fr 1fr; }
+    @media (max-width:900px) { .cg-2,.cg-3 { grid-template-columns:1fr; } }
+
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 18px;
+    }
+    .chart-title {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--muted2);
+      margin-bottom: 12px;
+    }
+    .chart-wrap { position:relative; }
+    .ch220 { height: 220px; }
+    .ch260 { height: 260px; }
+    .ch180 { height: 180px; }
+
+    /* ── Tipo toggle ── */
+    .tipo-row { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+    .tipo-btn {
+      font-size:.65rem; font-weight:700; padding:3px 10px;
+      border-radius:6px; border:1px solid var(--border);
+      background:var(--surface2); color:var(--muted2); cursor:pointer; transition:all .15s;
+    }
+    .tipo-btn.on-op { background:rgba(99,102,241,.2); border-color:var(--accent); color:var(--accent); }
+    .tipo-btn.on-ex { background:rgba(245,158,11,.15); border-color:var(--yellow); color:var(--yellow); }
+
+    /* ── Tabela ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 18px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    table { width:100%; border-collapse:collapse; min-width:460px; }
+    th {
+      text-align:left; font-size:.6rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.5px;
+      color:var(--muted); padding:0 6px 8px;
+      border-bottom:1px solid var(--border);
+    }
+    th.r, td.r { text-align:right; }
+    th.c, td.c { text-align:center; }
+    td { padding:8px 6px; font-size:.82rem; border-bottom:1px solid var(--border); }
+    tr:last-child td { border-bottom:none; }
+    .mini-bg  { background:var(--border); border-radius:3px; height:4px; overflow:hidden; }
+    .mini-fill{ height:4px; border-radius:3px; transition:width .4s; }
+
+    .tbadge {
+      font-size:.58rem; font-weight:700; padding:2px 7px;
+      border-radius:99px; white-space:nowrap;
+    }
+    .tbadge-op { background:rgba(99,102,241,.15); color:#a5b4fc; }
+    .tbadge-ex { background:rgba(245,158,11,.15);  color:#fcd34d; }
+    .tbadge-fi { background:rgba(20,184,166,.15);  color:#5eead4; }
+
+    /* ── Explicação ── */
+    .explainer {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 12px 16px;
+      font-size: .75rem;
+      color: var(--muted2);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .explainer strong { color: var(--text); }
+
+    /* ── Legend row ── */
+    .legend-row {
+      display:flex; gap:16px; flex-wrap:wrap; margin-bottom:10px;
+    }
+    .legend-item {
+      display:flex; align-items:center; gap:6px;
+      font-size:.68rem; color:var(--muted2);
+    }
+    .legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
+    /* ── Loading ── */
+    #loading {
+      display:flex; align-items:center; justify-content:center;
+      min-height:80vh; font-size:.95rem; color:var(--muted2);
+    }
+    #app { display:none; }
+
+    /* ── Footer ── */
+    footer { text-align:center; font-size:.65rem; color:var(--muted); padding:24px; }
+
+    /* ── Scrollbar styling ── */
+    ::-webkit-scrollbar { width:5px; height:5px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
+  </style>
+</head>
+<body>
+
+<div id="loading">Carregando dados financeiros…</div>
+
+<div id="app">
+
+  <!-- ── Header ── -->
+  <header>
+    <div>
+      <div class="hd-name">🏢 <span id="hd-nome">—</span></div>
+      <div class="hd-chips">
+        <span class="hd-chip">CNPJ: <strong id="hd-cnpj">—</strong></span>
+        <span class="hd-chip"><strong id="hd-cidade">—</strong></span>
+        <span class="hd-chip"><strong id="hd-unidades">—</strong> unidades</span>
+        <span class="hd-chip">Atualizado: <strong id="hd-gerado">—</strong></span>
+      </div>
+    </div>
+    <span class="badge">PAINEL FINANCEIRO</span>
+  </header>
+
+  <div class="shell">
+
+    <!-- ════ SIDEBAR ════ -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Período</div>
+
+      <!-- Drum picker -->
+      <div class="picker-outer" id="picker-outer">
+        <div class="picker-fade-top"></div>
+        <div class="picker-pill"></div>
+        <div class="picker-fade-bot"></div>
+        <div class="picker-list" id="picker-list"></div>
+      </div>
+
+      <!-- Quick stats for selected month -->
+      <div class="sidebar-stats">
+        <div class="ss-divider"></div>
+        <div>
+          <div class="ss-label">Receita</div>
+          <div class="ss-value c-blue" id="ss-receita">—</div>
+        </div>
+        <div>
+          <div class="ss-label">Desp. Custeio</div>
+          <div class="ss-value c-red" id="ss-ord">—</div>
+        </div>
+        <div>
+          <div class="ss-label">Obras & Melhorias</div>
+          <div class="ss-value c-yellow" id="ss-inv">—</div>
+        </div>
+        <div class="ss-divider"></div>
+        <div>
+          <div class="ss-label">Resultado Custeio</div>
+          <div class="ss-value" id="ss-res-ord">—</div>
+          <div class="ss-sub">Receita − custeio</div>
+        </div>
+        <div>
+          <div class="ss-label">Resultado Total</div>
+          <div class="ss-value" id="ss-res-total">—</div>
+          <div class="ss-sub">Receita − tudo</div>
+        </div>
+        <div class="ss-divider"></div>
+        <div>
+          <div class="ss-label">Caixa Operacional</div>
+          <div class="ss-value" id="ss-caixa-op">—</div>
+        </div>
+        <div>
+          <div class="ss-label">Fundo de Reserva</div>
+          <div class="ss-value c-teal" id="ss-reserva">—</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ════ MAIN ════ -->
+    <main class="main">
+
+      <!-- ── Visão Geral ── -->
+      <div class="sec mb16">Visão Geral do Período · <span id="sec-periodo">—</span></div>
+
+      <!-- Explainer -->
+      <div class="explainer">
+        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condomínio.
+        O <strong>resultado total</strong> inclui obras e melhorias pagas no período (academia, segurança, decoração etc.) — esses são gastos extraordinários, não "investimentos financeiros".
+        O <strong>Fundo de Reserva</strong> (aplicação financeira no Sicredi) é uma poupança do condomínio que <em>não deve</em> ser usada para custeio corrente.
+      </div>
+
+      <!-- KPIs globais -->
+      <div class="kpi-grid kpi-grid-4 mb24">
+        <div class="card">
+          <div class="card-label">Receitas Acumuladas</div>
+          <div class="card-value c-blue" id="k-rec">—</div>
+          <div class="card-sub" id="k-rec-avg">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Custeio Operacional Acum.</div>
+          <div class="card-value c-red" id="k-ord">—</div>
+          <div class="card-sub" id="k-ord-avg">—</div>
+          <div class="card-note">Despesas recorrentes</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Obras & Melhorias Acum.</div>
+          <div class="card-value c-yellow" id="k-inv">—</div>
+          <div class="card-sub" id="k-inv-avg">—</div>
+          <div class="card-note">Academia, segurança, decoração…</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Fundo de Reserva Atual</div>
+          <div class="card-value c-teal" id="k-reserva">—</div>
+          <div class="card-sub" id="k-reserva-sub">—</div>
+          <div class="card-note">Aplicação financeira — não tocar</div>
+        </div>
+      </div>
+
+      <!-- Banners de resultado -->
+      <div id="banner-op" class="banner warn mb16">
+        <div class="banner-row">
+          <div class="banner-block">
+            <div class="banner-label">Resultado Custeio Acumulado</div>
+            <div class="banner-val" id="k-res-op">—</div>
+            <div class="banner-note">Receitas − despesas operacionais (sem obras)</div>
+          </div>
+          <div class="banner-block">
+            <div class="banner-label">Resultado Total Acumulado</div>
+            <div class="banner-val" id="k-res-total">—</div>
+            <div class="banner-note">Receitas − todas as despesas (com obras)</div>
+          </div>
+          <div class="banner-block">
+            <div class="banner-label">Variação do Fundo de Reserva</div>
+            <div class="banner-val" id="k-var-reserva">—</div>
+            <div class="banner-note" id="k-var-reserva-note">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evolução mensal -->
+      <div class="sec mb16">Evolução Mensal</div>
+
+      <div class="charts-grid cg-2 mb16">
+        <div class="chart-card">
+          <div class="chart-title">Receita × Custeio × Obras & Melhorias</div>
+          <div class="chart-wrap ch220"><canvas id="chart-evolucao"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Resultado por Mês (Custeio vs Total)</div>
+          <div class="chart-wrap ch220"><canvas id="chart-resultado"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-grid cg-2 mb24">
+        <div class="chart-card">
+          <div class="chart-title">Fundo de Reserva — Evolução (aplicação financeira)</div>
+          <div class="chart-wrap ch220"><canvas id="chart-reserva"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Caixa Operacional — Evolução (contas correntes)</div>
+          <div class="chart-wrap ch220"><canvas id="chart-caixa-op"></canvas></div>
+        </div>
+      </div>
+
+      <!-- ── Detalhe do Mês ── -->
+      <div class="sec mb16">Detalhe do Mês — <span id="sec-mes">—</span></div>
+
+      <!-- Caixas separadas -->
+      <div class="caixa-grid">
+        <div class="caixa-card">
+          <div class="cc-title"><span class="dot dot-teal"></span>Fundo de Reserva (Aplicação Financeira)</div>
+          <div class="cc-total c-teal" id="cc-reserva-total">—</div>
+          <div class="cc-accounts" id="cc-reserva-contas"></div>
+          <div class="card-note" style="margin-top:8px">Reserva estratégica · não utilizar para custeio corrente</div>
+        </div>
+        <div class="caixa-card">
+          <div class="cc-title"><span class="dot" id="cc-op-dot"></span>Caixa Operacional (Contas Correntes)</div>
+          <div class="cc-total" id="cc-op-total">—</div>
+          <div class="cc-accounts" id="cc-op-contas"></div>
+          <div class="card-note" style="margin-top:8px" id="cc-op-note">—</div>
+        </div>
+      </div>
+
+      <!-- KPIs do mês -->
+      <div class="kpi-grid kpi-grid-4 mb24">
+        <div class="card">
+          <div class="card-label">Receita do Mês</div>
+          <div class="card-value c-blue" id="m-rec">—</div>
+          <div class="card-sub">Total arrecadado</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Custeio Operacional</div>
+          <div class="card-value c-red" id="m-ord">—</div>
+          <div class="card-sub">Despesas recorrentes</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Obras & Melhorias</div>
+          <div class="card-value c-yellow" id="m-inv">—</div>
+          <div class="card-sub">Gastos extraordinários</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Resultado Custeio</div>
+          <div class="card-value" id="m-res-op">—</div>
+          <div class="card-sub">Receita − custeio</div>
+        </div>
+      </div>
+
+      <!-- Gráficos do mês -->
+      <div class="charts-grid cg-2 mb24">
+        <div class="chart-card">
+          <div class="chart-title">Despesas por Categoria — <span id="lbl-desp">—</span></div>
+          <div class="tipo-row">
+            <button class="tipo-btn on-op" id="btn-op" onclick="toggleTipo('op')">🔵 Custeio</button>
+            <button class="tipo-btn on-ex" id="btn-ex" onclick="toggleTipo('ex')">🟡 Obras & Melhorias</button>
+          </div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Custeio</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Obras & Melhorias</div>
+          </div>
+          <div class="chart-wrap ch220"><canvas id="chart-desp-cat"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Receitas por Categoria — <span id="lbl-rec">—</span></div>
+          <div class="chart-wrap ch260"><canvas id="chart-rec-cat"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Tabela do mês -->
+      <div class="sec mb16">Detalhamento de Despesas — <span id="lbl-table">—</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th class="c">Tipo</th>
+              <th style="width:110px">Participação</th>
+              <th class="r">Valor</th>
+              <th class="r">% Total</th>
+            </tr>
+          </thead>
+          <tbody id="desp-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Ranking histórico -->
+      <div class="sec mb16">Ranking de Gastos · Todo o Período</div>
+      <div class="charts-grid cg-3 mb24">
+        <div class="chart-card">
+          <div class="chart-title">Top 12 Categorias — Total Acumulado</div>
+          <div class="chart-wrap ch260"><canvas id="chart-ranking"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Composição por Tipo</div>
+          <div class="chart-wrap ch260"><canvas id="chart-tipo-pie"></canvas></div>
+        </div>
+      </div>
+
+      <footer id="footer-txt"></footer>
+
+    </main>
+  </div><!-- /shell -->
+</div><!-- /app -->
+
+<script>
+// ── Configuração ────────────────────────────────────────────────
+const JSON_URL = 'dados.json';
+// GitHub Pages:
+// const JSON_URL = 'https://raw.githubusercontent.com/SEU_USUARIO/varandas-painel/main/dados.json';
+
+// ── Utilidades ──────────────────────────────────────────────────
+const fmt  = v => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+const pct  = v => v.toFixed(1).replace('.',',') + '%';
+const el   = id => document.getElementById(id);
+const sign = v => v >= 0 ? '+' : '';
+function colorVal(v, pos='c-green', neg='c-red') {
+  return v >= 0 ? pos : neg;
+}
+
+const PALETTE = [
+  '#6366f1','#22c55e','#f59e0b','#ef4444','#14b8a6',
+  '#a855f7','#3b82f6','#ec4899','#f97316','#84cc16',
+  '#0ea5e9','#e879f9','#fb923c','#a3e635','#34d399'
+];
+
+// ── Estado ──────────────────────────────────────────────────────
+let dados    = null;
+let mesId    = null;
+let showOp   = true;  // custeio
+let showEx   = true;  // obras/melhorias
+let charts   = {};
+let picker   = null;
+
+// ── Classificação de contas bancárias ───────────────────────────
+// "Reserva" = aplicação financeira; "Operacional" = corrente
+function isReservaAccount(name) {
+  return /APLICA[ÇC][ÃA]O|COTAS\s*CAPITAL/i.test(name);
+}
+
+function calcContas(mes) {
+  const reserva = {}, operacional = {};
+  Object.entries(mes.saldo_contas).forEach(([k, v]) => {
+    if (isReservaAccount(k)) reserva[k] = v;
+    else operacional[k] = v;
+  });
+  const totReserva = Object.values(reserva).reduce((s,v)=>s+v, 0);
+  const totOp      = Object.values(operacional).reduce((s,v)=>s+v, 0);
+  return { reserva, operacional, totReserva, totOp };
+}
+
+// ── Classificação de despesas ───────────────────────────────────
+// "Obra/Melhoria" = começa com INVESTIMENTO*; resto = custeio operacional
+function tipoDesp(categoria) {
+  return /^INVESTIMENTO/i.test(categoria) ? 'ex' : 'op';
+}
+
+function despFiltradas(mes) {
+  return Object.entries(mes.despesas_categorias)
+    .map(([cat, val]) => ({ cat, val, tipo: tipoDesp(cat) }))
+    .filter(d => (d.tipo === 'op' && showOp) || (d.tipo === 'ex' && showEx))
+    .sort((a,b) => b.val - a.val);
+}
+
+// ── Charts ──────────────────────────────────────────────────────
+function destroyChart(id) {
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+}
+
+function defaultOpts(labelFmt) {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    interaction:{ mode:'index', intersect:false },
+    plugins:{
+      legend:{ labels:{ color:'#6b7591', font:{size:11}, boxWidth:11 } },
+      tooltip:{
+        backgroundColor:'#151826', borderColor:'#252840', borderWidth:1,
+        titleColor:'#e2e8f0', bodyColor:'#8892a4',
+        callbacks:{ label: ctx => ` ${ctx.dataset.label}: ${fmt(ctx.parsed.y ?? ctx.parsed.x)}` },
+      },
+    },
+    scales:{
+      x:{ ticks:{color:'#6b7591',font:{size:10}}, grid:{color:'#1c2033'} },
+      y:{
+        ticks:{ color:'#6b7591', font:{size:10},
+          callback: v => 'R$'+(Math.abs(v)>=1000?(v/1000).toFixed(0)+'k':v) },
+        grid:{ color:'#1c2033' },
+      },
+    },
+  };
+}
+
+// ── Render global ────────────────────────────────────────────────
+function renderGlobal() {
+  const { meta, kpis, meses, ranking_despesas } = dados;
+
+  // Header
+  el('hd-nome').textContent    = meta.condominio;
+  el('hd-cnpj').textContent    = meta.cnpj;
+  el('hd-cidade').textContent  = meta.cidade;
+  el('hd-unidades').textContent= meta.unidades;
+  el('hd-gerado').textContent  = meta.gerado_em.split('-').reverse().join('/');
+  el('sec-periodo').textContent= `${meses[0].label} → ${meses[meses.length-1].label}`;
+
+  // Calcular acumulados derivados
+  const totOrd = meses.reduce((s,m) => s + m.despesas_ordinarias, 0);
+  const totInv = meses.reduce((s,m) => s + m.despesas_investimentos, 0);
+  const resOp  = kpis.receitas_acumuladas - totOrd;
+  const resTotal = kpis.resultado_acumulado;
+
+  // Reserva financeira inicial e atual
+  const contasInicio = calcContas(meses[0]);
+  const contasFim    = calcContas(meses[meses.length-1]);
+  const reservaAtual = contasFim.totReserva;
+  const reservaInic  = contasInicio.totReserva;
+  const varReserva   = reservaAtual - reservaInic;
+
+  // KPIs
+  el('k-rec').textContent     = fmt(kpis.receitas_acumuladas);
+  el('k-rec-avg').textContent = `Média: ${fmt(kpis.receita_media_mensal)}/mês`;
+  el('k-ord').textContent     = fmt(totOrd);
+  el('k-ord-avg').textContent = `Média: ${fmt(totOrd/meses.length)}/mês`;
+  el('k-inv').textContent     = fmt(totInv);
+  el('k-inv-avg').textContent = `Média: ${fmt(totInv/meses.length)}/mês`;
+  el('k-reserva').textContent = fmt(reservaAtual);
+  el('k-reserva-sub').textContent = `Inicial: ${fmt(reservaInic)}`;
+
+  // Banner resultado
+  const bannerOp = el('banner-op');
+  bannerOp.className = 'banner mb16 ' + (resOp >= 0 ? 'pos' : (resOp > -10000 ? 'warn' : 'neg'));
+  el('k-res-op').textContent    = fmt(resOp);
+  el('k-res-total').textContent = fmt(resTotal);
+  el('k-var-reserva').textContent = (varReserva >= 0 ? '+' : '') + fmt(varReserva);
+  el('k-var-reserva-note').textContent =
+    `${fmt(reservaInic)} → ${fmt(reservaAtual)} (${meses[0].label} → ${meses[meses.length-1].label})`;
+
+  // Charts globais
+  renderChartEvolucao(meses);
+  renderChartResultado(meses, totOrd);
+  renderChartReserva(meses);
+  renderChartCaixaOp(meses);
+  renderRanking(ranking_despesas);
+  renderTipoPie(totOrd, totInv);
+}
+
+// ── Chart evolução ───────────────────────────────────────────────
+function renderChartEvolucao(meses) {
+  destroyChart('ev');
+  charts['ev'] = new Chart(el('chart-evolucao'), {
+    type: 'line',
+    data: {
+      labels: meses.map(m => m.label),
+      datasets: [
+        { label:'Receita',           data:meses.map(m=>m.receitas_total),        borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,.07)',  tension:.3, fill:true, pointRadius:3 },
+        { label:'Custeio Operac.',   data:meses.map(m=>m.despesas_ordinarias),   borderColor:'#6366f1', backgroundColor:'rgba(99,102,241,.07)', tension:.3, fill:true, pointRadius:3 },
+        { label:'Obras & Melhorias', data:meses.map(m=>m.despesas_investimentos),borderColor:'#f59e0b', backgroundColor:'rgba(245,158,11,.07)', tension:.3, fill:true, pointRadius:3, borderDash:[4,3] },
+      ],
+    },
+    options: defaultOpts(),
+  });
+}
+
+// ── Chart resultado ──────────────────────────────────────────────
+function renderChartResultado(meses, totOrd) {
+  destroyChart('res');
+  const resOp    = meses.map(m => m.receitas_total - m.despesas_ordinarias);
+  const resTotal = meses.map(m => m.resultado);
+  charts['res'] = new Chart(el('chart-resultado'), {
+    type: 'bar',
+    data: {
+      labels: meses.map(m=>m.label),
+      datasets: [
+        {
+          label:'Resultado Custeio',
+          data: resOp,
+          backgroundColor: resOp.map(v => v>=0?'rgba(34,197,94,.7)':'rgba(239,68,68,.7)'),
+          borderRadius:4, borderSkipped:false,
+        },
+        {
+          label:'Resultado Total',
+          data: resTotal,
+          type: 'line',
+          borderColor:'#f59e0b', backgroundColor:'rgba(245,158,11,.1)',
+          tension:.3, pointRadius:3, fill:false,
+        },
+      ],
+    },
+    options: {
+      ...defaultOpts(),
+      plugins: {
+        ...defaultOpts().plugins,
+        legend:{ labels:{ color:'#6b7591', font:{size:11}, boxWidth:11 } },
+      },
+    },
+  });
+}
+
+// ── Chart fundo de reserva ───────────────────────────────────────
+function renderChartReserva(meses) {
+  destroyChart('reserva');
+  const vals = meses.map(m => calcContas(m).totReserva);
+  charts['reserva'] = new Chart(el('chart-reserva'), {
+    type: 'line',
+    data: {
+      labels: meses.map(m=>m.label),
+      datasets:[{
+        label:'Fundo de Reserva',
+        data: vals,
+        borderColor:'#14b8a6',
+        backgroundColor: ctx => {
+          const { ctx:c, chartArea:a } = ctx.chart;
+          if (!a) return 'rgba(20,184,166,.1)';
+          const g = c.createLinearGradient(0,a.top,0,a.bottom);
+          g.addColorStop(0,'rgba(20,184,166,.3)'); g.addColorStop(1,'rgba(20,184,166,.02)');
+          return g;
+        },
+        tension:.35, fill:true, pointRadius:4,
+        pointBackgroundColor: vals.map(v=>v>=0?'#14b8a6':'#ef4444'),
+      }],
+    },
+    options: { ...defaultOpts(), plugins:{ ...defaultOpts().plugins, legend:{display:false} } },
+  });
+}
+
+// ── Chart caixa operacional ──────────────────────────────────────
+function renderChartCaixaOp(meses) {
+  destroyChart('caixa-op');
+  const vals = meses.map(m => calcContas(m).totOp);
+  charts['caixa-op'] = new Chart(el('chart-caixa-op'), {
+    type: 'bar',
+    data: {
+      labels: meses.map(m=>m.label),
+      datasets:[{
+        label:'Caixa Operacional',
+        data: vals,
+        backgroundColor: vals.map(v => v>=0?'rgba(99,102,241,.65)':'rgba(239,68,68,.65)'),
+        borderRadius:4, borderSkipped:false,
+      }],
+    },
+    options: { ...defaultOpts(), plugins:{ ...defaultOpts().plugins, legend:{display:false} } },
+  });
+}
+
+// ── Chart ranking ────────────────────────────────────────────────
+function renderRanking(ranking) {
+  destroyChart('ranking');
+  const top12 = ranking.slice(0,12);
+  charts['ranking'] = new Chart(el('chart-ranking'), {
+    type: 'bar',
+    data: {
+      labels: top12.map(r => r.categoria.length>26?r.categoria.slice(0,26)+'…':r.categoria),
+      datasets:[{
+        label:'Total',
+        data: top12.map(r=>r.total),
+        backgroundColor: top12.map(r => tipoDesp(r.categoria)==='ex'?'rgba(245,158,11,.75)':'rgba(99,102,241,.75)'),
+        borderRadius:5, borderSkipped:false,
+      }],
+    },
+    options:{
+      ...defaultOpts(),
+      indexAxis:'y',
+      plugins:{ ...defaultOpts().plugins, legend:{display:false} },
+      scales:{
+        x:{ ticks:{color:'#6b7591',font:{size:10},callback:v=>'R$'+(v/1000).toFixed(0)+'k'}, grid:{color:'#1c2033'} },
+        y:{ ticks:{color:'#e2e8f0',font:{size:10}}, grid:{display:false} },
+      },
+    },
+  });
+}
+
+// ── Chart tipo pie ───────────────────────────────────────────────
+function renderTipoPie(totOrd, totInv) {
+  destroyChart('tipo-pie');
+  charts['tipo-pie'] = new Chart(el('chart-tipo-pie'), {
+    type:'doughnut',
+    data:{
+      labels:['Custeio Operacional','Obras & Melhorias'],
+      datasets:[{
+        data:[totOrd, totInv],
+        backgroundColor:['rgba(99,102,241,.8)','rgba(245,158,11,.8)'],
+        borderColor:'#151826', borderWidth:3,
+      }],
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ position:'bottom', labels:{color:'#8892a4',font:{size:11},boxWidth:12} },
+        tooltip:{
+          backgroundColor:'#151826', borderColor:'#252840', borderWidth:1,
+          titleColor:'#e2e8f0', bodyColor:'#8892a4',
+          callbacks:{ label: ctx => ` ${ctx.label}: ${fmt(ctx.parsed)}` },
+        },
+      },
+    },
+  });
+}
+
+// ── Chart desp categoria (mês) ───────────────────────────────────
+function renderChartDespCat(mes) {
+  destroyChart('desp-cat');
+  const arr = despFiltradas(mes).slice(0,14);
+  charts['desp-cat'] = new Chart(el('chart-desp-cat'), {
+    type:'bar',
+    data:{
+      labels: arr.map(d=>d.cat.length>24?d.cat.slice(0,24)+'…':d.cat),
+      datasets:[{
+        label:'Valor',
+        data: arr.map(d=>d.val),
+        backgroundColor: arr.map(d=>d.tipo==='ex'?'rgba(245,158,11,.75)':'rgba(99,102,241,.75)'),
+        borderRadius:5, borderSkipped:false,
+      }],
+    },
+    options:{
+      ...defaultOpts(),
+      indexAxis:'y',
+      plugins:{ ...defaultOpts().plugins, legend:{display:false} },
+      scales:{
+        x:{ ticks:{color:'#6b7591',font:{size:10},callback:v=>'R$'+(v/1000).toFixed(0)+'k'}, grid:{color:'#1c2033'} },
+        y:{ ticks:{color:'#e2e8f0',font:{size:10}}, grid:{display:false} },
+      },
+    },
+  });
+}
+
+// ── Chart rec categoria (mês) ────────────────────────────────────
+function renderChartRecCat(mes) {
+  destroyChart('rec-cat');
+  const arr = Object.entries(mes.receitas_categorias)
+    .filter(([,v])=>v>0)
+    .sort(([,a],[,b])=>b-a);
+  charts['rec-cat'] = new Chart(el('chart-rec-cat'), {
+    type:'doughnut',
+    data:{
+      labels: arr.map(([k])=>k),
+      datasets:[{
+        data: arr.map(([,v])=>v),
+        backgroundColor: PALETTE.slice(0,arr.length),
+        borderColor:'#151826', borderWidth:2,
+      }],
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ position:'right', labels:{color:'#6b7591',font:{size:10},boxWidth:10} },
+        tooltip:{
+          backgroundColor:'#151826', borderColor:'#252840', borderWidth:1,
+          titleColor:'#e2e8f0', bodyColor:'#8892a4',
+          callbacks:{ label: ctx=>`  ${ctx.label}: ${fmt(ctx.parsed)}` },
+        },
+      },
+    },
+  });
+}
+
+// ── Render mês ───────────────────────────────────────────────────
+function renderMes() {
+  const mes = dados.meses.find(m => m.periodo === mesId);
+  if (!mes) return;
+
+  el('sec-mes').textContent  = mes.label;
+  el('lbl-desp').textContent = mes.label;
+  el('lbl-rec').textContent  = mes.label;
+  el('lbl-table').textContent= mes.label;
+
+  const resOp    = mes.receitas_total - mes.despesas_ordinarias;
+  const resTotal = mes.resultado;
+  const contas   = calcContas(mes);
+
+  // Sidebar quick stats
+  el('ss-receita').textContent  = fmt(mes.receitas_total);
+  el('ss-ord').textContent      = fmt(mes.despesas_ordinarias);
+  el('ss-inv').textContent      = fmt(mes.despesas_investimentos);
+  const ssResOp = el('ss-res-ord');
+  ssResOp.textContent = fmt(resOp);
+  ssResOp.className = 'ss-value ' + (resOp>=0?'c-green':'c-red');
+  const ssResTotal = el('ss-res-total');
+  ssResTotal.textContent = fmt(resTotal);
+  ssResTotal.className = 'ss-value ' + (resTotal>=0?'c-green':'c-red');
+  el('ss-caixa-op').textContent = fmt(contas.totOp);
+  el('ss-caixa-op').className = 'ss-value ' + (contas.totOp>=0?'c-green':'c-red');
+  el('ss-reserva').textContent  = fmt(contas.totReserva);
+
+  // KPIs mês
+  el('m-rec').textContent  = fmt(mes.receitas_total);
+  el('m-ord').textContent  = fmt(mes.despesas_ordinarias);
+  el('m-inv').textContent  = fmt(mes.despesas_investimentos);
+  const mResOp = el('m-res-op');
+  mResOp.textContent = fmt(resOp);
+  mResOp.className   = 'card-value ' + (resOp>=0?'c-green':'c-red');
+
+  // Contas — Fundo de Reserva
+  el('cc-reserva-total').textContent = fmt(contas.totReserva);
+  const ccRes = el('cc-reserva-contas');
+  ccRes.innerHTML = '';
+  Object.entries(contas.reserva).forEach(([k,v]) => {
+    const d = document.createElement('div');
+    d.className = 'cc-account';
+    d.innerHTML = `<span class="cn">${k}</span><span class="${v>=0?'c-teal':'c-red'}">${fmt(v)}</span>`;
+    ccRes.appendChild(d);
+  });
+
+  // Contas — Caixa Operacional
+  const ccOpTotal = el('cc-op-total');
+  ccOpTotal.textContent = fmt(contas.totOp);
+  ccOpTotal.className   = 'cc-total ' + (contas.totOp>=0?'c-green':'c-red');
+  const ccOpDot = el('cc-op-dot');
+  ccOpDot.className = 'dot ' + (contas.totOp>=0?'dot-green':'dot-red');
+  el('cc-op-note').textContent = contas.totOp < 0
+    ? '⚠️ Saldo negativo — coberto pelo fundo de reserva no mesmo banco'
+    : 'Saldo disponível nas contas correntes';
+  const ccOp = el('cc-op-contas');
+  ccOp.innerHTML = '';
+  Object.entries(contas.operacional).forEach(([k,v]) => {
+    const d = document.createElement('div');
+    d.className = 'cc-account';
+    d.innerHTML = `<span class="cn">${k}</span><span class="${v>=0?'c-green':'c-red'}">${fmt(v)}</span>`;
+    ccOp.appendChild(d);
+  });
+
+  // Charts mês
+  renderChartDespCat(mes);
+  renderChartRecCat(mes);
+  renderTabelaDespesas(mes);
+}
+
+// ── Tabela despesas ───────────────────────────────────────────────
+function renderTabelaDespesas(mes) {
+  const arr   = despFiltradas(mes);
+  const total = arr.reduce((s,d)=>s+d.val, 0);
+  const totalMes = mes.despesas_total;
+  const tbody = el('desp-tbody');
+  tbody.innerHTML = '';
+  arr.forEach(d => {
+    const shareFilt = total>0 ? d.val/total*100 : 0;
+    const shareTot  = totalMes>0 ? d.val/totalMes*100 : 0;
+    const fillColor = d.tipo==='ex'?'#f59e0b':'#6366f1';
+    const badge     = d.tipo==='ex'
+      ? '<span class="tbadge tbadge-ex">Obra</span>'
+      : '<span class="tbadge tbadge-op">Custeio</span>';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${d.cat}</td>
+      <td class="c">${badge}</td>
+      <td><div class="mini-bg"><div class="mini-fill" style="width:${shareFilt.toFixed(1)}%;background:${fillColor}"></div></div></td>
+      <td class="r">${fmt(d.val)}</td>
+      <td class="r">${pct(shareTot)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  // Totais
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="font-weight:700">Total (filtrado)</td>
+    <td></td>
+    <td></td>
+    <td class="r" style="font-weight:700">${fmt(total)}</td>
+    <td class="r" style="font-weight:700">${pct(total/totalMes*100)}</td>
+  `;
+  tbody.appendChild(tr);
+}
+
+// ── Toggle custeio/obras ─────────────────────────────────────────
+window.toggleTipo = function(tipo) {
+  if (tipo==='op') { showOp=!showOp; el('btn-op').classList.toggle('on-op',showOp); }
+  if (tipo==='ex') { showEx=!showEx; el('btn-ex').classList.toggle('on-ex',showEx); }
+  const mes = dados.meses.find(m=>m.periodo===mesId);
+  if (mes) { renderChartDespCat(mes); renderTabelaDespesas(mes); }
+};
+
+// ════════════════════════════════ PICKER iOS ════════════════════
+class DrumPicker {
+  constructor(meses, onSelect) {
+    this.meses    = meses;
+    this.onSelect = onSelect;
+    this.idx      = meses.length - 1;
+    this.ITEM_H   = 48;
+    this.outer    = el('picker-outer');
+    this.list     = el('picker-list');
+    this.dragging = false;
+    this.startY   = 0;
+    this.startIdx = 0;
+    this.animId   = null;
+    this.velocity = 0;
+    this.lastY    = 0;
+    this.lastTime = 0;
+    this.build();
+    this.bindEvents();
+    this.goTo(this.idx, false);
+  }
+
+  build() {
+    this.list.innerHTML = '';
+    this.meses.forEach((m, i) => {
+      const d = document.createElement('div');
+      d.className = 'picker-item';
+      d.dataset.idx = i;
+      const parts = m.label.split('/');
+      if (parts.length === 2) {
+        d.innerHTML =
+          `<span class="pi-month">${parts[0]}</span>` +
+          `<span class="pi-sep">/</span>` +
+          `<span class="pi-year">${parts[1]}</span>`;
+      } else {
+        d.innerHTML = `<span class="pi-month">${m.label}</span>`;
+      }
+      d.addEventListener('click', () => this.goTo(i));
+      this.list.appendChild(d);
+    });
+    this.items = Array.from(this.list.querySelectorAll('.picker-item'));
+  }
+
+  goTo(idx, animate = true) {
+    this.idx = Math.max(0, Math.min(this.meses.length - 1, idx));
+    const T = (3 - this.idx) * this.ITEM_H;
+    this.list.style.transition = animate
+      ? 'transform .35s cubic-bezier(0.22, 0.61, 0.36, 1)'
+      : 'none';
+    this.list.style.transform = `translateY(${T}px)`;
+    this.updateStyles();
+    this.onSelect(this.idx);
+  }
+
+  applyOffset(offsetPx) {
+    const T = (3 - this.startIdx) * this.ITEM_H + offsetPx;
+    this.list.style.transition = 'none';
+    this.list.style.transform  = `translateY(${T}px)`;
+    this.updateStyles(this.startIdx - offsetPx / this.ITEM_H);
+  }
+
+  snapFromDrag(offsetPx) {
+    const rawIdx = this.startIdx - offsetPx / this.ITEM_H;
+    let snapIdx  = Math.round(rawIdx);
+    if (Math.abs(this.velocity) > 0.4) {
+      snapIdx = Math.round(rawIdx + this.velocity * -5);
+    }
+    this.goTo(snapIdx);
+  }
+
+  updateStyles(fractIdx) {
+    const cur = fractIdx !== undefined ? fractIdx : this.idx;
+    this.items.forEach((item, i) => {
+      const dist = Math.abs(i - cur);
+      const isActive = dist < 0.5;
+
+      // Opacity: selecionado=1, ±1=0.45, ±2=0.2, mais longe=0.07
+      const opacity = isActive ? 1
+        : dist < 1.5 ? 0.45
+        : dist < 2.5 ? 0.2
+        : 0.07;
+
+      // Escala: selecionado=1.08, ±1=0.88, ±2=0.78, mais=0.7
+      const scale = isActive ? 1.08
+        : dist < 1.5 ? 0.88
+        : dist < 2.5 ? 0.78
+        : 0.70;
+
+      item.style.opacity   = opacity;
+      item.style.transform = `scale(${scale})`;
+      item.classList.toggle('active', isActive);
+
+      // Cores dos spans internos
+      const month = item.querySelector('.pi-month');
+      const sep   = item.querySelector('.pi-sep');
+      const year  = item.querySelector('.pi-year');
+
+      if (isActive) {
+        if (month) { month.style.fontSize='1rem'; month.style.fontWeight='800'; month.style.color='#ffffff'; }
+        if (sep)   { sep.style.color='rgba(255,255,255,.35)'; sep.style.margin='0 2px'; }
+        if (year)  { year.style.fontSize='.82rem'; year.style.fontWeight='600'; year.style.color='rgba(255,255,255,.55)'; }
+      } else if (dist < 1.5) {
+        if (month) { month.style.fontSize='.84rem'; month.style.fontWeight='500'; month.style.color='#8892a4'; }
+        if (sep)   { sep.style.color='#4a5568'; sep.style.margin='0 1px'; }
+        if (year)  { year.style.fontSize='.72rem'; year.style.fontWeight='400'; year.style.color='#4a5568'; }
+      } else {
+        if (month) { month.style.fontSize='.78rem'; month.style.fontWeight='400'; month.style.color='#3d4660'; }
+        if (sep)   { sep.style.color='#2d3450'; sep.style.margin='0 1px'; }
+        if (year)  { year.style.fontSize='.68rem'; year.style.fontWeight='400'; year.style.color='#2d3450'; }
+      }
+    });
+  }
+
+  bindEvents() {
+    // Mouse wheel
+    this.outer.addEventListener('wheel', e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 1 : -1;
+      this.goTo(this.idx + delta);
+    }, { passive: false });
+
+    // Touch
+    this.outer.addEventListener('touchstart', e => {
+      this.dragging  = true;
+      this.startY    = e.touches[0].clientY;
+      this.startIdx  = this.idx;
+      this.lastY     = this.startY;
+      this.lastTime  = Date.now();
+      this.velocity  = 0;
+      this.list.style.transition = 'none';
+    }, { passive: true });
+
+    this.outer.addEventListener('touchmove', e => {
+      if (!this.dragging) return;
+      const y    = e.touches[0].clientY;
+      const now  = Date.now();
+      const dt   = now - this.lastTime;
+      if (dt > 0) this.velocity = (y - this.lastY) / dt;
+      this.lastY    = y;
+      this.lastTime = now;
+      this.applyOffset(y - this.startY);
+    }, { passive: true });
+
+    this.outer.addEventListener('touchend', e => {
+      if (!this.dragging) return;
+      this.dragging = false;
+      this.snapFromDrag(this.lastY - this.startY);
+    });
+
+    // Mouse drag
+    this.outer.addEventListener('mousedown', e => {
+      this.dragging  = true;
+      this.startY    = e.clientY;
+      this.startIdx  = this.idx;
+      this.lastY     = e.clientY;
+      this.lastTime  = Date.now();
+      this.velocity  = 0;
+      this.list.style.transition = 'none';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (!this.dragging) return;
+      const now = Date.now();
+      const dt  = now - this.lastTime;
+      if (dt > 0) this.velocity = (e.clientY - this.lastY) / dt;
+      this.lastY    = e.clientY;
+      this.lastTime = now;
+      this.applyOffset(e.clientY - this.startY);
+    });
+
+    document.addEventListener('mouseup', e => {
+      if (!this.dragging) return;
+      this.dragging = false;
+      this.snapFromDrag(e.clientY - this.startY);
+    });
+  }
+
+  setByPeriodo(periodo) {
+    const idx = this.meses.findIndex(m => m.periodo === periodo);
+    if (idx >= 0) this.goTo(idx, false);
+  }
+}
+
+// ── Boot ─────────────────────────────────────────────────────────
+async function boot() {
+  try {
+    const res = await fetch(JSON_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    dados = await res.json();
+    dados.meses.sort((a,b) => a.data_ref.localeCompare(b.data_ref));
+    mesId = dados.meses[dados.meses.length-1].periodo;
+
+    el('loading').style.display = 'none';
+    el('app').style.display = 'block';
+
+    renderGlobal();
+
+    picker = new DrumPicker(dados.meses, idx => {
+      mesId = dados.meses[idx].periodo;
+      renderMes();
+    });
+
+    el('footer-txt').textContent =
+      `${dados.meta.condominio} · Painel Financeiro · Gerado em ${dados.meta.gerado_em}`;
+
+  } catch(err) {
+    el('loading').innerHTML = `
+      <div style="text-align:center">
+        <p style="font-size:1rem;margin-bottom:8px">Erro ao carregar dados</p>
+        <p style="font-size:.78rem;color:#6b7280">${err.message}</p>
+        <p style="font-size:.7rem;color:#4b5563;margin-top:10px">Abra via servidor HTTP ou ajuste JSON_URL.</p>
+      </div>`;
+  }
+}
+
+boot();
+</script>
+</body>
+</html>
