@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Financeiro · Varandas do Tocantins</title>
+  <title>Painel Financeiro ¬∑ Varandas do Tocantins</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
-    /* ════════════════════════════════════ HEADER ══ */
+    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê HEADER ‚ïê‚ïê */
     header {
       background: linear-gradient(135deg,#181b2e 0%,#111320 100%);
       border-bottom: 1px solid var(--border);
@@ -72,13 +72,13 @@
       white-space: nowrap;
     }
 
-    /* ════════════════════════════════════ SHELL ══ */
+    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê SHELL ‚ïê‚ïê */
     .shell {
       display: flex;
       min-height: calc(100vh - 60px);
     }
 
-    /* ════════════════════════════════════ SIDEBAR ══ */
+    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê SIDEBAR ‚ïê‚ïê */
     .sidebar {
       width: 220px;
       flex-shrink: 0;
@@ -102,16 +102,16 @@
       padding: 16px 0 10px;
     }
 
-    /* ── iOS-style drum picker ── */
+    /* ‚îÄ‚îÄ iOS-style drum picker ‚îÄ‚îÄ */
     .picker-outer {
       position: relative;
       width: 100%;
-      height: 336px;   /* 7 items × 48px */
+      height: 336px;   /* 7 items √ó 48px */
       overflow: hidden;
       cursor: ns-resize;
       touch-action: none;
     }
-    /* Gradiente forte nas bordas para sensação de profundidade */
+    /* Gradiente forte nas bordas para sensa√ß√£o de profundidade */
     .picker-fade-top {
       position: absolute; top: 0; left: 0; right: 0; height: 130px;
       background: linear-gradient(to bottom, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
@@ -122,7 +122,7 @@
       background: linear-gradient(to top, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
       pointer-events: none; z-index: 2;
     }
-    /* Cápsula de seleção — destaque do item ativo */
+    /* C√°psula de sele√ß√£o ‚Äî destaque do item ativo */
     .picker-pill {
       position: absolute;
       left: 14px; right: 14px;
@@ -154,7 +154,7 @@
       /* transitions individuais via JS inline style */
     }
 
-    /* ── Month quick stats ── */
+    /* ‚îÄ‚îÄ Month quick stats ‚îÄ‚îÄ */
     .sidebar-stats {
       flex: 1;
       width: 100%;
@@ -187,7 +187,7 @@
       background: var(--border);
     }
 
-    /* ════════════════════════════════════ MAIN ══ */
+    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê MAIN ‚ïê‚ïê */
     .main {
       flex: 1;
       overflow-y: auto;
@@ -195,7 +195,7 @@
       min-width: 0;
     }
 
-    /* ── Section label ── */
+    /* ‚îÄ‚îÄ Section label ‚îÄ‚îÄ */
     .sec {
       font-size: .63rem;
       font-weight: 700;
@@ -209,7 +209,7 @@
     .mb24 { margin-bottom: 24px; }
     .mb16 { margin-bottom: 16px; }
 
-    /* ── KPI grid ── */
+    /* ‚îÄ‚îÄ KPI grid ‚îÄ‚îÄ */
     .kpi-grid {
       display: grid;
       gap: 12px;
@@ -248,7 +248,7 @@
     .c-accent { color: var(--accent);}
     .c-muted  { color: var(--muted2);}
 
-    /* ── Alert banner ── */
+    /* ‚îÄ‚îÄ Alert banner ‚îÄ‚îÄ */
     .banner {
       border-radius: var(--r);
       border: 1px solid;
@@ -270,7 +270,7 @@
     .banner.warn .banner-val{ color:var(--yellow); }
     .banner-note  { font-size:.65rem; color:var(--muted2); margin-top:4px; }
 
-    /* ── Caixa cards especiais ── */
+    /* ‚îÄ‚îÄ Caixa cards especiais ‚îÄ‚îÄ */
     .caixa-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -318,7 +318,7 @@
     .cc-account:last-child { border-bottom: none; }
     .cc-account .cn { color: var(--text); }
 
-    /* ── Charts ── */
+    /* ‚îÄ‚îÄ Charts ‚îÄ‚îÄ */
     .charts-grid {
       display: grid;
       gap: 14px;
@@ -346,7 +346,7 @@
     .ch260 { height: 260px; }
     .ch180 { height: 180px; }
 
-    /* ── Tipo toggle ── */
+    /* ‚îÄ‚îÄ Tipo toggle ‚îÄ‚îÄ */
     .tipo-row { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
     .tipo-btn {
       font-size:.65rem; font-weight:700; padding:3px 10px;
@@ -356,7 +356,7 @@
     .tipo-btn.on-op { background:rgba(99,102,241,.2); border-color:var(--accent); color:var(--accent); }
     .tipo-btn.on-ex { background:rgba(245,158,11,.15); border-color:var(--yellow); color:var(--yellow); }
 
-    /* ── Tabela ── */
+    /* ‚îÄ‚îÄ Tabela ‚îÄ‚îÄ */
     .table-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -387,7 +387,7 @@
     .tbadge-ex { background:rgba(245,158,11,.15);  color:#fcd34d; }
     .tbadge-fi { background:rgba(20,184,166,.15);  color:#5eead4; }
 
-    /* ── Explicação ── */
+    /* ‚îÄ‚îÄ Explica√ß√£o ‚îÄ‚îÄ */
     .explainer {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -401,7 +401,7 @@
     }
     .explainer strong { color: var(--text); }
 
-    /* ── Legend row ── */
+    /* ‚îÄ‚îÄ Legend row ‚îÄ‚îÄ */
     .legend-row {
       display:flex; gap:16px; flex-wrap:wrap; margin-bottom:10px;
     }
@@ -411,17 +411,17 @@
     }
     .legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
 
-    /* ── Loading ── */
+    /* ‚îÄ‚îÄ Loading ‚îÄ‚îÄ */
     #loading {
       display:flex; align-items:center; justify-content:center;
       min-height:80vh; font-size:.95rem; color:var(--muted2);
     }
     #app { display:none; }
 
-    /* ── Footer ── */
+    /* ‚îÄ‚îÄ Footer ‚îÄ‚îÄ */
     footer { text-align:center; font-size:.65rem; color:var(--muted); padding:24px; }
 
-    /* ── Scrollbar styling ── */
+    /* ‚îÄ‚îÄ Scrollbar styling ‚îÄ‚îÄ */
     ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
@@ -429,19 +429,19 @@
 </head>
 <body>
 
-<div id="loading">Carregando dados financeiros…</div>
+<div id="loading">Carregando dados financeiros‚Ä¶</div>
 
 <div id="app">
 
-  <!-- ── Header ── -->
+  <!-- ‚îÄ‚îÄ Header ‚îÄ‚îÄ -->
   <header>
     <div>
-      <div class="hd-name">🏢 <span id="hd-nome">—</span></div>
+      <div class="hd-name">üè¢ <span id="hd-nome">‚Äî</span></div>
       <div class="hd-chips">
-        <span class="hd-chip">CNPJ: <strong id="hd-cnpj">—</strong></span>
-        <span class="hd-chip"><strong id="hd-cidade">—</strong></span>
-        <span class="hd-chip"><strong id="hd-unidades">—</strong> unidades</span>
-        <span class="hd-chip">Atualizado: <strong id="hd-gerado">—</strong></span>
+        <span class="hd-chip">CNPJ: <strong id="hd-cnpj">‚Äî</strong></span>
+        <span class="hd-chip"><strong id="hd-cidade">‚Äî</strong></span>
+        <span class="hd-chip"><strong id="hd-unidades">‚Äî</strong> unidades</span>
+        <span class="hd-chip">Atualizado: <strong id="hd-gerado">‚Äî</strong></span>
       </div>
     </div>
     <span class="badge">PAINEL FINANCEIRO</span>
@@ -449,9 +449,9 @@
 
   <div class="shell">
 
-    <!-- ════ SIDEBAR ════ -->
+    <!-- ‚ïê‚ïê‚ïê‚ïê SIDEBAR ‚ïê‚ïê‚ïê‚ïê -->
     <aside class="sidebar">
-      <div class="sidebar-label">Período</div>
+      <div class="sidebar-label">Per√≠odo</div>
 
       <!-- Drum picker -->
       <div class="picker-outer" id="picker-outer">
@@ -466,76 +466,76 @@
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Receita</div>
-          <div class="ss-value c-blue" id="ss-receita">—</div>
+          <div class="ss-value c-blue" id="ss-receita">‚Äî</div>
         </div>
         <div>
           <div class="ss-label">Desp. Custeio</div>
-          <div class="ss-value c-red" id="ss-ord">—</div>
+          <div class="ss-value c-red" id="ss-ord">‚Äî</div>
         </div>
         <div>
           <div class="ss-label">Obras & Melhorias</div>
-          <div class="ss-value c-yellow" id="ss-inv">—</div>
+          <div class="ss-value c-yellow" id="ss-inv">‚Äî</div>
         </div>
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Resultado Custeio</div>
-          <div class="ss-value" id="ss-res-ord">—</div>
-          <div class="ss-sub">Receita − custeio</div>
+          <div class="ss-value" id="ss-res-ord">‚Äî</div>
+          <div class="ss-sub">Receita ‚àí custeio</div>
         </div>
         <div>
           <div class="ss-label">Resultado Total</div>
-          <div class="ss-value" id="ss-res-total">—</div>
-          <div class="ss-sub">Receita − tudo</div>
+          <div class="ss-value" id="ss-res-total">‚Äî</div>
+          <div class="ss-sub">Receita ‚àí tudo</div>
         </div>
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Caixa Operacional</div>
-          <div class="ss-value" id="ss-caixa-op">—</div>
+          <div class="ss-value" id="ss-caixa-op">‚Äî</div>
         </div>
         <div>
           <div class="ss-label">Fundo de Reserva</div>
-          <div class="ss-value c-teal" id="ss-reserva">—</div>
+          <div class="ss-value c-teal" id="ss-reserva">‚Äî</div>
         </div>
       </div>
     </aside>
 
-    <!-- ════ MAIN ════ -->
+    <!-- ‚ïê‚ïê‚ïê‚ïê MAIN ‚ïê‚ïê‚ïê‚ïê -->
     <main class="main">
 
-      <!-- ── Visão Geral ── -->
-      <div class="sec mb16">Visão Geral do Período · <span id="sec-periodo">—</span></div>
+      <!-- ‚îÄ‚îÄ Vis√£o Geral ‚îÄ‚îÄ -->
+      <div class="sec mb16">Vis√£o Geral do Per√≠odo ¬∑ <span id="sec-periodo">‚Äî</span></div>
 
       <!-- Explainer -->
       <div class="explainer">
-        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condomínio.
-        O <strong>resultado total</strong> inclui obras e melhorias pagas no período (academia, segurança, decoração etc.) — esses são gastos extraordinários, não "investimentos financeiros".
-        O <strong>Fundo de Reserva</strong> (aplicação financeira no Sicredi) é uma poupança do condomínio que <em>não deve</em> ser usada para custeio corrente.
+        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condom√≠nio.
+        O <strong>resultado total</strong> inclui obras e melhorias pagas no per√≠odo (academia, seguran√ßa, decora√ß√£o etc.) ‚Äî esses s√£o gastos extraordin√°rios, n√£o "investimentos financeiros".
+        O <strong>Fundo de Reserva</strong> (aplica√ß√£o financeira no Sicredi) √© uma poupan√ßa do condom√≠nio que <em>n√£o deve</em> ser usada para custeio corrente.
       </div>
 
       <!-- KPIs globais -->
       <div class="kpi-grid kpi-grid-4 mb24">
         <div class="card">
           <div class="card-label">Receitas Acumuladas</div>
-          <div class="card-value c-blue" id="k-rec">—</div>
-          <div class="card-sub" id="k-rec-avg">—</div>
+          <div class="card-value c-blue" id="k-rec">‚Äî</div>
+          <div class="card-sub" id="k-rec-avg">‚Äî</div>
         </div>
         <div class="card">
           <div class="card-label">Custeio Operacional Acum.</div>
-          <div class="card-value c-red" id="k-ord">—</div>
-          <div class="card-sub" id="k-ord-avg">—</div>
+          <div class="card-value c-red" id="k-ord">‚Äî</div>
+          <div class="card-sub" id="k-ord-avg">‚Äî</div>
           <div class="card-note">Despesas recorrentes</div>
         </div>
         <div class="card">
           <div class="card-label">Obras & Melhorias Acum.</div>
-          <div class="card-value c-yellow" id="k-inv">—</div>
-          <div class="card-sub" id="k-inv-avg">—</div>
-          <div class="card-note">Academia, segurança, decoração…</div>
+          <div class="card-value c-yellow" id="k-inv">‚Äî</div>
+          <div class="card-sub" id="k-inv-avg">‚Äî</div>
+          <div class="card-note">Academia, seguran√ßa, decora√ß√£o‚Ä¶</div>
         </div>
         <div class="card">
           <div class="card-label">Fundo de Reserva Atual</div>
-          <div class="card-value c-teal" id="k-reserva">—</div>
-          <div class="card-sub" id="k-reserva-sub">—</div>
-          <div class="card-note">Aplicação financeira — não tocar</div>
+          <div class="card-value c-teal" id="k-reserva">‚Äî</div>
+          <div class="card-sub" id="k-reserva-sub">‚Äî</div>
+          <div class="card-note">Aplica√ß√£o financeira ‚Äî n√£o tocar</div>
         </div>
       </div>
 
@@ -544,97 +544,97 @@
         <div class="banner-row">
           <div class="banner-block">
             <div class="banner-label">Resultado Custeio Acumulado</div>
-            <div class="banner-val" id="k-res-op">—</div>
-            <div class="banner-note">Receitas − despesas operacionais (sem obras)</div>
+            <div class="banner-val" id="k-res-op">‚Äî</div>
+            <div class="banner-note">Receitas ‚àí despesas operacionais (sem obras)</div>
           </div>
           <div class="banner-block">
             <div class="banner-label">Resultado Total Acumulado</div>
-            <div class="banner-val" id="k-res-total">—</div>
-            <div class="banner-note">Receitas − todas as despesas (com obras)</div>
+            <div class="banner-val" id="k-res-total">‚Äî</div>
+            <div class="banner-note">Receitas ‚àí todas as despesas (com obras)</div>
           </div>
           <div class="banner-block">
-            <div class="banner-label">Variação do Fundo de Reserva</div>
-            <div class="banner-val" id="k-var-reserva">—</div>
-            <div class="banner-note" id="k-var-reserva-note">—</div>
+            <div class="banner-label">Varia√ß√£o do Fundo de Reserva</div>
+            <div class="banner-val" id="k-var-reserva">‚Äî</div>
+            <div class="banner-note" id="k-var-reserva-note">‚Äî</div>
           </div>
         </div>
       </div>
 
-      <!-- Evolução mensal -->
-      <div class="sec mb16">Evolução Mensal</div>
+      <!-- Evolu√ß√£o mensal -->
+      <div class="sec mb16">Evolu√ß√£o Mensal</div>
 
       <div class="charts-grid cg-2 mb16">
         <div class="chart-card">
-          <div class="chart-title">Receita × Custeio × Obras & Melhorias</div>
+          <div class="chart-title">Receita √ó Custeio √ó Obras & Melhorias</div>
           <div class="chart-wrap ch220"><canvas id="chart-evolucao"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Resultado por Mês (Custeio vs Total)</div>
+          <div class="chart-title">Resultado por M√™s (Custeio vs Total)</div>
           <div class="chart-wrap ch220"><canvas id="chart-resultado"></canvas></div>
         </div>
       </div>
 
       <div class="charts-grid cg-2 mb24">
         <div class="chart-card">
-          <div class="chart-title">Fundo de Reserva — Evolução (aplicação financeira)</div>
+          <div class="chart-title">Fundo de Reserva ‚Äî Evolu√ß√£o (aplica√ß√£o financeira)</div>
           <div class="chart-wrap ch220"><canvas id="chart-reserva"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Caixa Operacional — Evolução (contas correntes)</div>
+          <div class="chart-title">Caixa Operacional ‚Äî Evolu√ß√£o (contas correntes)</div>
           <div class="chart-wrap ch220"><canvas id="chart-caixa-op"></canvas></div>
         </div>
       </div>
 
-      <!-- ── Detalhe do Mês ── -->
-      <div class="sec mb16">Detalhe do Mês — <span id="sec-mes">—</span></div>
+      <!-- ‚îÄ‚îÄ Detalhe do M√™s ‚îÄ‚îÄ -->
+      <div class="sec mb16">Detalhe do M√™s ‚Äî <span id="sec-mes">‚Äî</span></div>
 
       <!-- Caixas separadas -->
       <div class="caixa-grid">
         <div class="caixa-card">
-          <div class="cc-title"><span class="dot dot-teal"></span>Fundo de Reserva (Aplicação Financeira)</div>
-          <div class="cc-total c-teal" id="cc-reserva-total">—</div>
+          <div class="cc-title"><span class="dot dot-teal"></span>Fundo de Reserva (Aplica√ß√£o Financeira)</div>
+          <div class="cc-total c-teal" id="cc-reserva-total">‚Äî</div>
           <div class="cc-accounts" id="cc-reserva-contas"></div>
-          <div class="card-note" style="margin-top:8px">Reserva estratégica · não utilizar para custeio corrente</div>
+          <div class="card-note" style="margin-top:8px">Reserva estrat√©gica ¬∑ n√£o utilizar para custeio corrente</div>
         </div>
         <div class="caixa-card">
           <div class="cc-title"><span class="dot" id="cc-op-dot"></span>Caixa Operacional (Contas Correntes)</div>
-          <div class="cc-total" id="cc-op-total">—</div>
+          <div class="cc-total" id="cc-op-total">‚Äî</div>
           <div class="cc-accounts" id="cc-op-contas"></div>
-          <div class="card-note" style="margin-top:8px" id="cc-op-note">—</div>
+          <div class="card-note" style="margin-top:8px" id="cc-op-note">‚Äî</div>
         </div>
       </div>
 
-      <!-- KPIs do mês -->
+      <!-- KPIs do m√™s -->
       <div class="kpi-grid kpi-grid-4 mb24">
         <div class="card">
-          <div class="card-label">Receita do Mês</div>
-          <div class="card-value c-blue" id="m-rec">—</div>
+          <div class="card-label">Receita do M√™s</div>
+          <div class="card-value c-blue" id="m-rec">‚Äî</div>
           <div class="card-sub">Total arrecadado</div>
         </div>
         <div class="card">
           <div class="card-label">Custeio Operacional</div>
-          <div class="card-value c-red" id="m-ord">—</div>
+          <div class="card-value c-red" id="m-ord">‚Äî</div>
           <div class="card-sub">Despesas recorrentes</div>
         </div>
         <div class="card">
           <div class="card-label">Obras & Melhorias</div>
-          <div class="card-value c-yellow" id="m-inv">—</div>
-          <div class="card-sub">Gastos extraordinários</div>
+          <div class="card-value c-yellow" id="m-inv">‚Äî</div>
+          <div class="card-sub">Gastos extraordin√°rios</div>
         </div>
         <div class="card">
           <div class="card-label">Resultado Custeio</div>
-          <div class="card-value" id="m-res-op">—</div>
-          <div class="card-sub">Receita − custeio</div>
+          <div class="card-value" id="m-res-op">‚Äî</div>
+          <div class="card-sub">Receita ‚àí custeio</div>
         </div>
       </div>
 
-      <!-- Gráficos do mês -->
+      <!-- Gr√°ficos do m√™s -->
       <div class="charts-grid cg-2 mb24">
         <div class="chart-card">
-          <div class="chart-title">Despesas por Categoria — <span id="lbl-desp">—</span></div>
+          <div class="chart-title">Despesas por Categoria ‚Äî <span id="lbl-desp">‚Äî</span></div>
           <div class="tipo-row">
-            <button class="tipo-btn on-op" id="btn-op" onclick="toggleTipo('op')">🔵 Custeio</button>
-            <button class="tipo-btn on-ex" id="btn-ex" onclick="toggleTipo('ex')">🟡 Obras & Melhorias</button>
+            <button class="tipo-btn on-op" id="btn-op" onclick="toggleTipo('op')">üîµ Custeio</button>
+            <button class="tipo-btn on-ex" id="btn-ex" onclick="toggleTipo('ex')">üü° Obras & Melhorias</button>
           </div>
           <div class="legend-row">
             <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Custeio</div>
@@ -643,20 +643,20 @@
           <div class="chart-wrap ch220"><canvas id="chart-desp-cat"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Receitas por Categoria — <span id="lbl-rec">—</span></div>
+          <div class="chart-title">Receitas por Categoria ‚Äî <span id="lbl-rec">‚Äî</span></div>
           <div class="chart-wrap ch260"><canvas id="chart-rec-cat"></canvas></div>
         </div>
       </div>
 
-      <!-- Tabela do mês -->
-      <div class="sec mb16">Detalhamento de Despesas — <span id="lbl-table">—</span></div>
+      <!-- Tabela do m√™s -->
+      <div class="sec mb16">Detalhamento de Despesas ‚Äî <span id="lbl-table">‚Äî</span></div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Categoria</th>
               <th class="c">Tipo</th>
-              <th style="width:110px">Participação</th>
+              <th style="width:110px">Participa√ß√£o</th>
               <th class="r">Valor</th>
               <th class="r">% Total</th>
             </tr>
@@ -665,15 +665,15 @@
         </table>
       </div>
 
-      <!-- Ranking histórico -->
-      <div class="sec mb16">Ranking de Gastos · Todo o Período</div>
+      <!-- Ranking hist√≥rico -->
+      <div class="sec mb16">Ranking de Gastos ¬∑ Todo o Per√≠odo</div>
       <div class="charts-grid cg-3 mb24">
         <div class="chart-card">
-          <div class="chart-title">Top 12 Categorias — Total Acumulado</div>
+          <div class="chart-title">Top 12 Categorias ‚Äî Total Acumulado</div>
           <div class="chart-wrap ch260"><canvas id="chart-ranking"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Composição por Tipo</div>
+          <div class="chart-title">Composi√ß√£o por Tipo</div>
           <div class="chart-wrap ch260"><canvas id="chart-tipo-pie"></canvas></div>
         </div>
       </div>
@@ -685,12 +685,10 @@
 </div><!-- /app -->
 
 <script>
-// ── Configuração ────────────────────────────────────────────────
-const JSON_URL = 'dados.json';
-// GitHub Pages:
-// const JSON_URL = 'https://raw.githubusercontent.com/SEU_USUARIO/varandas-painel/main/dados.json';
+// ‚îÄ‚îÄ Configura√ß√£o ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+const JSON_URL = 'https://raw.githubusercontent.com/drwillsdias/contas-condo/main/dados/dados.json';
 
-// ── Utilidades ──────────────────────────────────────────────────
+// ‚îÄ‚îÄ Utilidades ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 const fmt  = v => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
 const pct  = v => v.toFixed(1).replace('.',',') + '%';
 const el   = id => document.getElementById(id);
@@ -705,7 +703,7 @@ const PALETTE = [
   '#0ea5e9','#e879f9','#fb923c','#a3e635','#34d399'
 ];
 
-// ── Estado ──────────────────────────────────────────────────────
+// ‚îÄ‚îÄ Estado ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 let dados    = null;
 let mesId    = null;
 let showOp   = true;  // custeio
@@ -713,10 +711,10 @@ let showEx   = true;  // obras/melhorias
 let charts   = {};
 let picker   = null;
 
-// ── Classificação de contas bancárias ───────────────────────────
-// "Reserva" = aplicação financeira; "Operacional" = corrente
+// ‚îÄ‚îÄ Classifica√ß√£o de contas banc√°rias ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// "Reserva" = aplica√ß√£o financeira; "Operacional" = corrente
 function isReservaAccount(name) {
-  return /APLICA[ÇC][ÃA]O|COTAS\s*CAPITAL/i.test(name);
+  return /APLICA[√áC][√ÉA]O|COTAS\s*CAPITAL/i.test(name);
 }
 
 function calcContas(mes) {
@@ -730,8 +728,8 @@ function calcContas(mes) {
   return { reserva, operacional, totReserva, totOp };
 }
 
-// ── Classificação de despesas ───────────────────────────────────
-// "Obra/Melhoria" = começa com INVESTIMENTO*; resto = custeio operacional
+// ‚îÄ‚îÄ Classifica√ß√£o de despesas ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// "Obra/Melhoria" = come√ßa com INVESTIMENTO*; resto = custeio operacional
 function tipoDesp(categoria) {
   return /^INVESTIMENTO/i.test(categoria) ? 'ex' : 'op';
 }
@@ -743,7 +741,7 @@ function despFiltradas(mes) {
     .sort((a,b) => b.val - a.val);
 }
 
-// ── Charts ──────────────────────────────────────────────────────
+// ‚îÄ‚îÄ Charts ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function destroyChart(id) {
   if (charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
@@ -771,7 +769,7 @@ function defaultOpts(labelFmt) {
   };
 }
 
-// ── Render global ────────────────────────────────────────────────
+// ‚îÄ‚îÄ Render global ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderGlobal() {
   const { meta, kpis, meses, ranking_despesas } = dados;
 
@@ -781,7 +779,7 @@ function renderGlobal() {
   el('hd-cidade').textContent  = meta.cidade;
   el('hd-unidades').textContent= meta.unidades;
   el('hd-gerado').textContent  = meta.gerado_em.split('-').reverse().join('/');
-  el('sec-periodo').textContent= `${meses[0].label} → ${meses[meses.length-1].label}`;
+  el('sec-periodo').textContent= `${meses[0].label} ‚Üí ${meses[meses.length-1].label}`;
 
   // Calcular acumulados derivados
   const totOrd = meses.reduce((s,m) => s + m.despesas_ordinarias, 0);
@@ -798,11 +796,11 @@ function renderGlobal() {
 
   // KPIs
   el('k-rec').textContent     = fmt(kpis.receitas_acumuladas);
-  el('k-rec-avg').textContent = `Média: ${fmt(kpis.receita_media_mensal)}/mês`;
+  el('k-rec-avg').textContent = `M√©dia: ${fmt(kpis.receita_media_mensal)}/m√™s`;
   el('k-ord').textContent     = fmt(totOrd);
-  el('k-ord-avg').textContent = `Média: ${fmt(totOrd/meses.length)}/mês`;
+  el('k-ord-avg').textContent = `M√©dia: ${fmt(totOrd/meses.length)}/m√™s`;
   el('k-inv').textContent     = fmt(totInv);
-  el('k-inv-avg').textContent = `Média: ${fmt(totInv/meses.length)}/mês`;
+  el('k-inv-avg').textContent = `M√©dia: ${fmt(totInv/meses.length)}/m√™s`;
   el('k-reserva').textContent = fmt(reservaAtual);
   el('k-reserva-sub').textContent = `Inicial: ${fmt(reservaInic)}`;
 
@@ -813,7 +811,7 @@ function renderGlobal() {
   el('k-res-total').textContent = fmt(resTotal);
   el('k-var-reserva').textContent = (varReserva >= 0 ? '+' : '') + fmt(varReserva);
   el('k-var-reserva-note').textContent =
-    `${fmt(reservaInic)} → ${fmt(reservaAtual)} (${meses[0].label} → ${meses[meses.length-1].label})`;
+    `${fmt(reservaInic)} ‚Üí ${fmt(reservaAtual)} (${meses[0].label} ‚Üí ${meses[meses.length-1].label})`;
 
   // Charts globais
   renderChartEvolucao(meses);
@@ -824,7 +822,7 @@ function renderGlobal() {
   renderTipoPie(totOrd, totInv);
 }
 
-// ── Chart evolução ───────────────────────────────────────────────
+// ‚îÄ‚îÄ Chart evolu√ß√£o ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartEvolucao(meses) {
   destroyChart('ev');
   charts['ev'] = new Chart(el('chart-evolucao'), {
@@ -841,7 +839,7 @@ function renderChartEvolucao(meses) {
   });
 }
 
-// ── Chart resultado ──────────────────────────────────────────────
+// ‚îÄ‚îÄ Chart resultado ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartResultado(meses, totOrd) {
   destroyChart('res');
   const resOp    = meses.map(m => m.receitas_total - m.despesas_ordinarias);
@@ -876,7 +874,7 @@ function renderChartResultado(meses, totOrd) {
   });
 }
 
-// ── Chart fundo de reserva ───────────────────────────────────────
+// ‚îÄ‚îÄ Chart fundo de reserva ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartReserva(meses) {
   destroyChart('reserva');
   const vals = meses.map(m => calcContas(m).totReserva);
@@ -903,7 +901,7 @@ function renderChartReserva(meses) {
   });
 }
 
-// ── Chart caixa operacional ──────────────────────────────────────
+// ‚îÄ‚îÄ Chart caixa operacional ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartCaixaOp(meses) {
   destroyChart('caixa-op');
   const vals = meses.map(m => calcContas(m).totOp);
@@ -922,14 +920,14 @@ function renderChartCaixaOp(meses) {
   });
 }
 
-// ── Chart ranking ────────────────────────────────────────────────
+// ‚îÄ‚îÄ Chart ranking ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderRanking(ranking) {
   destroyChart('ranking');
   const top12 = ranking.slice(0,12);
   charts['ranking'] = new Chart(el('chart-ranking'), {
     type: 'bar',
     data: {
-      labels: top12.map(r => r.categoria.length>26?r.categoria.slice(0,26)+'…':r.categoria),
+      labels: top12.map(r => r.categoria.length>26?r.categoria.slice(0,26)+'‚Ä¶':r.categoria),
       datasets:[{
         label:'Total',
         data: top12.map(r=>r.total),
@@ -949,7 +947,7 @@ function renderRanking(ranking) {
   });
 }
 
-// ── Chart tipo pie ───────────────────────────────────────────────
+// ‚îÄ‚îÄ Chart tipo pie ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderTipoPie(totOrd, totInv) {
   destroyChart('tipo-pie');
   charts['tipo-pie'] = new Chart(el('chart-tipo-pie'), {
@@ -976,14 +974,14 @@ function renderTipoPie(totOrd, totInv) {
   });
 }
 
-// ── Chart desp categoria (mês) ───────────────────────────────────
+// ‚îÄ‚îÄ Chart desp categoria (m√™s) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartDespCat(mes) {
   destroyChart('desp-cat');
   const arr = despFiltradas(mes).slice(0,14);
   charts['desp-cat'] = new Chart(el('chart-desp-cat'), {
     type:'bar',
     data:{
-      labels: arr.map(d=>d.cat.length>24?d.cat.slice(0,24)+'…':d.cat),
+      labels: arr.map(d=>d.cat.length>24?d.cat.slice(0,24)+'‚Ä¶':d.cat),
       datasets:[{
         label:'Valor',
         data: arr.map(d=>d.val),
@@ -1003,7 +1001,7 @@ function renderChartDespCat(mes) {
   });
 }
 
-// ── Chart rec categoria (mês) ────────────────────────────────────
+// ‚îÄ‚îÄ Chart rec categoria (m√™s) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderChartRecCat(mes) {
   destroyChart('rec-cat');
   const arr = Object.entries(mes.receitas_categorias)
@@ -1033,7 +1031,7 @@ function renderChartRecCat(mes) {
   });
 }
 
-// ── Render mês ───────────────────────────────────────────────────
+// ‚îÄ‚îÄ Render m√™s ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderMes() {
   const mes = dados.meses.find(m => m.periodo === mesId);
   if (!mes) return;
@@ -1061,7 +1059,7 @@ function renderMes() {
   el('ss-caixa-op').className = 'ss-value ' + (contas.totOp>=0?'c-green':'c-red');
   el('ss-reserva').textContent  = fmt(contas.totReserva);
 
-  // KPIs mês
+  // KPIs m√™s
   el('m-rec').textContent  = fmt(mes.receitas_total);
   el('m-ord').textContent  = fmt(mes.despesas_ordinarias);
   el('m-inv').textContent  = fmt(mes.despesas_investimentos);
@@ -1069,7 +1067,7 @@ function renderMes() {
   mResOp.textContent = fmt(resOp);
   mResOp.className   = 'card-value ' + (resOp>=0?'c-green':'c-red');
 
-  // Contas — Fundo de Reserva
+  // Contas ‚Äî Fundo de Reserva
   el('cc-reserva-total').textContent = fmt(contas.totReserva);
   const ccRes = el('cc-reserva-contas');
   ccRes.innerHTML = '';
@@ -1080,15 +1078,15 @@ function renderMes() {
     ccRes.appendChild(d);
   });
 
-  // Contas — Caixa Operacional
+  // Contas ‚Äî Caixa Operacional
   const ccOpTotal = el('cc-op-total');
   ccOpTotal.textContent = fmt(contas.totOp);
   ccOpTotal.className   = 'cc-total ' + (contas.totOp>=0?'c-green':'c-red');
   const ccOpDot = el('cc-op-dot');
   ccOpDot.className = 'dot ' + (contas.totOp>=0?'dot-green':'dot-red');
   el('cc-op-note').textContent = contas.totOp < 0
-    ? '⚠️ Saldo negativo — coberto pelo fundo de reserva no mesmo banco'
-    : 'Saldo disponível nas contas correntes';
+    ? '‚ö†Ô∏è Saldo negativo ‚Äî coberto pelo fundo de reserva no mesmo banco'
+    : 'Saldo dispon√≠vel nas contas correntes';
   const ccOp = el('cc-op-contas');
   ccOp.innerHTML = '';
   Object.entries(contas.operacional).forEach(([k,v]) => {
@@ -1098,13 +1096,13 @@ function renderMes() {
     ccOp.appendChild(d);
   });
 
-  // Charts mês
+  // Charts m√™s
   renderChartDespCat(mes);
   renderChartRecCat(mes);
   renderTabelaDespesas(mes);
 }
 
-// ── Tabela despesas ───────────────────────────────────────────────
+// ‚îÄ‚îÄ Tabela despesas ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 function renderTabelaDespesas(mes) {
   const arr   = despFiltradas(mes);
   const total = arr.reduce((s,d)=>s+d.val, 0);
@@ -1140,7 +1138,7 @@ function renderTabelaDespesas(mes) {
   tbody.appendChild(tr);
 }
 
-// ── Toggle custeio/obras ─────────────────────────────────────────
+// ‚îÄ‚îÄ Toggle custeio/obras ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 window.toggleTipo = function(tipo) {
   if (tipo==='op') { showOp=!showOp; el('btn-op').classList.toggle('on-op',showOp); }
   if (tipo==='ex') { showEx=!showEx; el('btn-ex').classList.toggle('on-ex',showEx); }
@@ -1148,7 +1146,7 @@ window.toggleTipo = function(tipo) {
   if (mes) { renderChartDespCat(mes); renderTabelaDespesas(mes); }
 };
 
-// ════════════════════════════════ PICKER iOS ════════════════════
+// ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê PICKER iOS ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
 class DrumPicker {
   constructor(meses, onSelect) {
     this.meses    = meses;
@@ -1192,7 +1190,7 @@ class DrumPicker {
 
   goTo(idx, animate = true) {
     this.idx = Math.max(0, Math.min(this.meses.length - 1, idx));
-    const T = (3 - this.idx) * this.ITEM_H;
+    const T = -this.idx * this.ITEM_H;
     this.list.style.transition = animate
       ? 'transform .35s cubic-bezier(0.22, 0.61, 0.36, 1)'
       : 'none';
@@ -1202,7 +1200,7 @@ class DrumPicker {
   }
 
   applyOffset(offsetPx) {
-    const T = (3 - this.startIdx) * this.ITEM_H + offsetPx;
+    const T = -this.startIdx * this.ITEM_H + offsetPx;
     this.list.style.transition = 'none';
     this.list.style.transform  = `translateY(${T}px)`;
     this.updateStyles(this.startIdx - offsetPx / this.ITEM_H);
@@ -1223,13 +1221,13 @@ class DrumPicker {
       const dist = Math.abs(i - cur);
       const isActive = dist < 0.5;
 
-      // Opacity: selecionado=1, ±1=0.45, ±2=0.2, mais longe=0.07
+      // Opacity: selecionado=1, ¬±1=0.45, ¬±2=0.2, mais longe=0.07
       const opacity = isActive ? 1
         : dist < 1.5 ? 0.45
         : dist < 2.5 ? 0.2
         : 0.07;
 
-      // Escala: selecionado=1.08, ±1=0.88, ±2=0.78, mais=0.7
+      // Escala: selecionado=1.08, ¬±1=0.88, ¬±2=0.78, mais=0.7
       const scale = isActive ? 1.08
         : dist < 1.5 ? 0.88
         : dist < 2.5 ? 0.78
@@ -1331,7 +1329,7 @@ class DrumPicker {
   }
 }
 
-// ── Boot ─────────────────────────────────────────────────────────
+// ‚îÄ‚îÄ Boot ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
 async function boot() {
   try {
     const res = await fetch(JSON_URL);
@@ -1351,7 +1349,7 @@ async function boot() {
     });
 
     el('footer-txt').textContent =
-      `${dados.meta.condominio} · Painel Financeiro · Gerado em ${dados.meta.gerado_em}`;
+      `${dados.meta.condominio} ¬∑ Painel Financeiro ¬∑ Gerado em ${dados.meta.gerado_em}`;
 
   } catch(err) {
     el('loading').innerHTML = `
