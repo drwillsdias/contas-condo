@@ -1,9 +1,9 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Financeiro ¬∑ Varandas do Tocantins</title>
+  <title>Painel Financeiro · Varandas do Tocantins</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
-    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê HEADER ‚ïê‚ïê */
+    /* ════════════════════════════════════ HEADER ══ */
     header {
       background: linear-gradient(135deg,#181b2e 0%,#111320 100%);
       border-bottom: 1px solid var(--border);
@@ -72,13 +72,13 @@
       white-space: nowrap;
     }
 
-    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê SHELL ‚ïê‚ïê */
+    /* ════════════════════════════════════ SHELL ══ */
     .shell {
       display: flex;
       min-height: calc(100vh - 60px);
     }
 
-    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê SIDEBAR ‚ïê‚ïê */
+    /* ════════════════════════════════════ SIDEBAR ══ */
     .sidebar {
       width: 220px;
       flex-shrink: 0;
@@ -102,16 +102,16 @@
       padding: 16px 0 10px;
     }
 
-    /* ‚îÄ‚îÄ iOS-style drum picker ‚îÄ‚îÄ */
+    /* ── iOS-style drum picker ── */
     .picker-outer {
       position: relative;
       width: 100%;
-      height: 336px;   /* 7 items √ó 48px */
+      height: 336px;   /* 7 items × 48px */
       overflow: hidden;
       cursor: ns-resize;
       touch-action: none;
     }
-    /* Gradiente forte nas bordas para sensa√ß√£o de profundidade */
+    /* Gradiente forte nas bordas para sensação de profundidade */
     .picker-fade-top {
       position: absolute; top: 0; left: 0; right: 0; height: 130px;
       background: linear-gradient(to bottom, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
@@ -122,7 +122,7 @@
       background: linear-gradient(to top, var(--surface) 0%, var(--surface) 20%, rgba(21,24,38,.85) 60%, transparent);
       pointer-events: none; z-index: 2;
     }
-    /* C√°psula de sele√ß√£o ‚Äî destaque do item ativo */
+    /* Cápsula de seleção — destaque do item ativo */
     .picker-pill {
       position: absolute;
       left: 14px; right: 14px;
@@ -154,7 +154,7 @@
       /* transitions individuais via JS inline style */
     }
 
-    /* ‚îÄ‚îÄ Month quick stats ‚îÄ‚îÄ */
+    /* ── Month quick stats ── */
     .sidebar-stats {
       flex: 1;
       width: 100%;
@@ -187,7 +187,7 @@
       background: var(--border);
     }
 
-    /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê MAIN ‚ïê‚ïê */
+    /* ════════════════════════════════════ MAIN ══ */
     .main {
       flex: 1;
       overflow-y: auto;
@@ -195,7 +195,7 @@
       min-width: 0;
     }
 
-    /* ‚îÄ‚îÄ Section label ‚îÄ‚îÄ */
+    /* ── Section label ── */
     .sec {
       font-size: .63rem;
       font-weight: 700;
@@ -209,7 +209,7 @@
     .mb24 { margin-bottom: 24px; }
     .mb16 { margin-bottom: 16px; }
 
-    /* ‚îÄ‚îÄ KPI grid ‚îÄ‚îÄ */
+    /* ── KPI grid ── */
     .kpi-grid {
       display: grid;
       gap: 12px;
@@ -248,7 +248,7 @@
     .c-accent { color: var(--accent);}
     .c-muted  { color: var(--muted2);}
 
-    /* ‚îÄ‚îÄ Alert banner ‚îÄ‚îÄ */
+    /* ── Alert banner ── */
     .banner {
       border-radius: var(--r);
       border: 1px solid;
@@ -270,7 +270,7 @@
     .banner.warn .banner-val{ color:var(--yellow); }
     .banner-note  { font-size:.65rem; color:var(--muted2); margin-top:4px; }
 
-    /* ‚îÄ‚îÄ Caixa cards especiais ‚îÄ‚îÄ */
+    /* ── Caixa cards especiais ── */
     .caixa-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -318,7 +318,7 @@
     .cc-account:last-child { border-bottom: none; }
     .cc-account .cn { color: var(--text); }
 
-    /* ‚îÄ‚îÄ Charts ‚îÄ‚îÄ */
+    /* ── Charts ── */
     .charts-grid {
       display: grid;
       gap: 14px;
@@ -346,7 +346,7 @@
     .ch260 { height: 260px; }
     .ch180 { height: 180px; }
 
-    /* ‚îÄ‚îÄ Tipo toggle ‚îÄ‚îÄ */
+    /* ── Tipo toggle ── */
     .tipo-row { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
     .tipo-btn {
       font-size:.65rem; font-weight:700; padding:3px 10px;
@@ -356,7 +356,7 @@
     .tipo-btn.on-op { background:rgba(99,102,241,.2); border-color:var(--accent); color:var(--accent); }
     .tipo-btn.on-ex { background:rgba(245,158,11,.15); border-color:var(--yellow); color:var(--yellow); }
 
-    /* ‚îÄ‚îÄ Tabela ‚îÄ‚îÄ */
+    /* ── Tabela ── */
     .table-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -387,7 +387,7 @@
     .tbadge-ex { background:rgba(245,158,11,.15);  color:#fcd34d; }
     .tbadge-fi { background:rgba(20,184,166,.15);  color:#5eead4; }
 
-    /* ‚îÄ‚îÄ Explica√ß√£o ‚îÄ‚îÄ */
+    /* ── Explicação ── */
     .explainer {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -401,7 +401,7 @@
     }
     .explainer strong { color: var(--text); }
 
-    /* ‚îÄ‚îÄ Legend row ‚îÄ‚îÄ */
+    /* ── Legend row ── */
     .legend-row {
       display:flex; gap:16px; flex-wrap:wrap; margin-bottom:10px;
     }
@@ -411,47 +411,227 @@
     }
     .legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
 
-    /* ‚îÄ‚îÄ Loading ‚îÄ‚îÄ */
+    /* ── Loading ── */
     #loading {
       display:flex; align-items:center; justify-content:center;
       min-height:80vh; font-size:.95rem; color:var(--muted2);
     }
     #app { display:none; }
 
-    /* ‚îÄ‚îÄ Footer ‚îÄ‚îÄ */
+    /* ── Footer ── */
     footer { text-align:center; font-size:.65rem; color:var(--muted); padding:24px; }
 
-    /* ‚îÄ‚îÄ Scrollbar styling ‚îÄ‚îÄ */
+    /* ── Scrollbar styling ── */
     ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
+
+    /* ═══════════════════════════════════════════ MOBILE MONTH BAR ══ */
+    .mobile-month-bar {
+      display: none; /* hidden on desktop */
+      align-items: center;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .mmb-arrow {
+      flex-shrink: 0;
+      width: 38px; height: 52px;
+      background: none; border: none;
+      color: var(--muted2); font-size: 1.6rem; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: color .15s;
+    }
+    .mmb-arrow:active { color: var(--accent); }
+    .mmb-scroll {
+      flex: 1;
+      overflow-x: auto;
+      display: flex;
+      gap: 7px;
+      padding: 10px 2px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mmb-scroll::-webkit-scrollbar { display: none; }
+    .mmb-pill {
+      flex-shrink: 0;
+      padding: 5px 13px;
+      border-radius: 99px;
+      font-size: .76rem; font-weight: 600;
+      cursor: pointer;
+      scroll-snap-align: center;
+      transition: background .18s, color .18s, border-color .18s;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .mmb-pill.active {
+      background: rgba(99,102,241,.2);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+    .mmb-pill:active { opacity: .7; }
+
+    /* ═══════════════════════════════════════════ MOBILE KPI STRIP ══ */
+    .mobile-kpi-strip {
+      display: none;
+    }
+    .mks-inner {
+      display: flex;
+      gap: 10px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mks-inner::-webkit-scrollbar { display: none; }
+    .mks-card {
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-width: 120px;
+    }
+    .mks-label { font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 4px; }
+    .mks-value { font-size: 1.05rem; font-weight: 700; line-height: 1; }
+
+    /* ═══════════════════════════════════════════ MOBILE OVERRIDES ══ */
+    @media (max-width: 768px) {
+      /* Header compacto */
+      header { padding: 10px 14px; gap: 6px; }
+      .hd-name { font-size: .95rem; }
+      .hd-chips { gap: 8px; margin-top: 2px; }
+      .hd-chip { font-size: .6rem; }
+      /* Esconde CNPJ e cidade pra poupar espaço */
+      .hd-chip:nth-child(1),
+      .hd-chip:nth-child(2) { display: none; }
+      .badge { font-size: .6rem; padding: 3px 9px; }
+
+      /* Shell: coluna */
+      .shell { flex-direction: column; min-height: unset; }
+
+      /* Sidebar: oculta */
+      .sidebar { display: none !important; }
+
+      /* Mobile month bar: visível */
+      .mobile-month-bar { display: flex; }
+
+      /* Mobile kpi strip: visível */
+      .mobile-kpi-strip { display: block; background: var(--surface); border-bottom: 1px solid var(--border); }
+
+      /* Main: padding reduzido, remove scroll próprio (body scroll no mobile) */
+      .main { padding: 14px 12px 40px; overflow-y: visible; }
+      .shell { min-height: unset; }
+
+      /* KPI grids: 2 colunas */
+      .kpi-grid-4 { grid-template-columns: 1fr 1fr; }
+      .kpi-grid-3 { grid-template-columns: 1fr 1fr; }
+      .kpi-grid-2 { grid-template-columns: 1fr 1fr; }
+
+      /* Cards: menores */
+      .card { padding: 12px 12px; }
+      .card-value { font-size: 1.15rem; }
+      .card-sub { font-size: .6rem; }
+      .card-note { font-size: .57rem; }
+      .card-label { font-size: .58rem; }
+
+      /* Banner: layout coluna */
+      .banner { padding: 12px 14px; }
+      .banner-row { flex-direction: column; gap: 8px; }
+      .banner-val { font-size: 1.3rem; }
+      .banner-note { font-size: .6rem; }
+
+      /* Caixa grid: 1 coluna */
+      .caixa-grid { grid-template-columns: 1fr; }
+
+      /* Charts: 1 coluna */
+      .cg-2, .cg-3 { grid-template-columns: 1fr; }
+      .ch260 { height: 200px; }
+      .ch220 { height: 180px; }
+      .ch180 { height: 160px; }
+
+      /* Explainer menor */
+      .explainer { font-size: .7rem; padding: 10px 12px; }
+
+      /* Section label */
+      .sec { font-size: .58rem; }
+
+      /* Tipo toggle: pequeno */
+      .tipo-btn { font-size: .6rem; padding: 2px 8px; }
+
+      /* Tabela: scroll horizontal já garantido */
+      table { min-width: 400px; }
+
+      /* Footer */
+      footer { font-size: .6rem; padding: 16px; }
+    }
   </style>
 </head>
 <body>
 
-<div id="loading">Carregando dados financeiros‚Ä¶</div>
+<div id="loading">Carregando dados financeiros…</div>
 
 <div id="app">
 
-  <!-- ‚îÄ‚îÄ Header ‚îÄ‚îÄ -->
+  <!-- ── Header ── -->
   <header>
     <div>
-      <div class="hd-name">üè¢ <span id="hd-nome">‚Äî</span></div>
+      <div class="hd-name">🏢 <span id="hd-nome">—</span></div>
       <div class="hd-chips">
-        <span class="hd-chip">CNPJ: <strong id="hd-cnpj">‚Äî</strong></span>
-        <span class="hd-chip"><strong id="hd-cidade">‚Äî</strong></span>
-        <span class="hd-chip"><strong id="hd-unidades">‚Äî</strong> unidades</span>
-        <span class="hd-chip">Atualizado: <strong id="hd-gerado">‚Äî</strong></span>
+        <span class="hd-chip">CNPJ: <strong id="hd-cnpj">—</strong></span>
+        <span class="hd-chip"><strong id="hd-cidade">—</strong></span>
+        <span class="hd-chip"><strong id="hd-unidades">—</strong> unidades</span>
+        <span class="hd-chip">Atualizado: <strong id="hd-gerado">—</strong></span>
       </div>
     </div>
     <span class="badge">PAINEL FINANCEIRO</span>
   </header>
 
+  <!-- ════ MOBILE MONTH BAR (hidden on desktop) ════ -->
+  <div class="mobile-month-bar" id="mobile-month-bar">
+    <button class="mmb-arrow" id="mmb-prev">‹</button>
+    <div class="mmb-scroll" id="mmb-scroll"></div>
+    <button class="mmb-arrow" id="mmb-next">›</button>
+  </div>
+
+  <!-- ════ MOBILE KPI STRIP — resumo do mês selecionado (hidden on desktop) ════ -->
+  <div class="mobile-kpi-strip" id="mobile-kpi-strip">
+    <div class="mks-inner">
+      <div class="mks-card">
+        <div class="mks-label">Receita</div>
+        <div class="mks-value c-blue" id="mks-receita">—</div>
+      </div>
+      <div class="mks-card">
+        <div class="mks-label">Custeio</div>
+        <div class="mks-value c-red" id="mks-ord">—</div>
+      </div>
+      <div class="mks-card">
+        <div class="mks-label">Resultado</div>
+        <div class="mks-value" id="mks-res">—</div>
+      </div>
+      <div class="mks-card">
+        <div class="mks-label">Caixa Op.</div>
+        <div class="mks-value" id="mks-caixa">—</div>
+      </div>
+      <div class="mks-card">
+        <div class="mks-label">Fundo Res.</div>
+        <div class="mks-value c-teal" id="mks-reserva">—</div>
+      </div>
+    </div>
+  </div>
+
   <div class="shell">
 
-    <!-- ‚ïê‚ïê‚ïê‚ïê SIDEBAR ‚ïê‚ïê‚ïê‚ïê -->
+    <!-- ════ SIDEBAR ════ -->
     <aside class="sidebar">
-      <div class="sidebar-label">Per√≠odo</div>
+      <div class="sidebar-label">Período</div>
 
       <!-- Drum picker -->
       <div class="picker-outer" id="picker-outer">
@@ -466,76 +646,76 @@
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Receita</div>
-          <div class="ss-value c-blue" id="ss-receita">‚Äî</div>
+          <div class="ss-value c-blue" id="ss-receita">—</div>
         </div>
         <div>
           <div class="ss-label">Desp. Custeio</div>
-          <div class="ss-value c-red" id="ss-ord">‚Äî</div>
+          <div class="ss-value c-red" id="ss-ord">—</div>
         </div>
         <div>
           <div class="ss-label">Obras & Melhorias</div>
-          <div class="ss-value c-yellow" id="ss-inv">‚Äî</div>
+          <div class="ss-value c-yellow" id="ss-inv">—</div>
         </div>
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Resultado Custeio</div>
-          <div class="ss-value" id="ss-res-ord">‚Äî</div>
-          <div class="ss-sub">Receita ‚àí custeio</div>
+          <div class="ss-value" id="ss-res-ord">—</div>
+          <div class="ss-sub">Receita − custeio</div>
         </div>
         <div>
           <div class="ss-label">Resultado Total</div>
-          <div class="ss-value" id="ss-res-total">‚Äî</div>
-          <div class="ss-sub">Receita ‚àí tudo</div>
+          <div class="ss-value" id="ss-res-total">—</div>
+          <div class="ss-sub">Receita − tudo</div>
         </div>
         <div class="ss-divider"></div>
         <div>
           <div class="ss-label">Caixa Operacional</div>
-          <div class="ss-value" id="ss-caixa-op">‚Äî</div>
+          <div class="ss-value" id="ss-caixa-op">—</div>
         </div>
         <div>
           <div class="ss-label">Fundo de Reserva</div>
-          <div class="ss-value c-teal" id="ss-reserva">‚Äî</div>
+          <div class="ss-value c-teal" id="ss-reserva">—</div>
         </div>
       </div>
     </aside>
 
-    <!-- ‚ïê‚ïê‚ïê‚ïê MAIN ‚ïê‚ïê‚ïê‚ïê -->
+    <!-- ════ MAIN ════ -->
     <main class="main">
 
-      <!-- ‚îÄ‚îÄ Vis√£o Geral ‚îÄ‚îÄ -->
-      <div class="sec mb16">Vis√£o Geral do Per√≠odo ¬∑ <span id="sec-periodo">‚Äî</span></div>
+      <!-- ── Visão Geral ── -->
+      <div class="sec mb16">Visão Geral do Período · <span id="sec-periodo">—</span></div>
 
       <!-- Explainer -->
       <div class="explainer">
-        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condom√≠nio.
-        O <strong>resultado total</strong> inclui obras e melhorias pagas no per√≠odo (academia, seguran√ßa, decora√ß√£o etc.) ‚Äî esses s√£o gastos extraordin√°rios, n√£o "investimentos financeiros".
-        O <strong>Fundo de Reserva</strong> (aplica√ß√£o financeira no Sicredi) √© uma poupan√ßa do condom√≠nio que <em>n√£o deve</em> ser usada para custeio corrente.
+        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condomínio.
+        O <strong>resultado total</strong> inclui obras e melhorias pagas no período (academia, segurança, decoração etc.) — esses são gastos extraordinários, não "investimentos financeiros".
+        O <strong>Fundo de Reserva</strong> (aplicação financeira no Sicredi) é uma poupança do condomínio que <em>não deve</em> ser usada para custeio corrente.
       </div>
 
       <!-- KPIs globais -->
       <div class="kpi-grid kpi-grid-4 mb24">
         <div class="card">
           <div class="card-label">Receitas Acumuladas</div>
-          <div class="card-value c-blue" id="k-rec">‚Äî</div>
-          <div class="card-sub" id="k-rec-avg">‚Äî</div>
+          <div class="card-value c-blue" id="k-rec">—</div>
+          <div class="card-sub" id="k-rec-avg">—</div>
         </div>
         <div class="card">
           <div class="card-label">Custeio Operacional Acum.</div>
-          <div class="card-value c-red" id="k-ord">‚Äî</div>
-          <div class="card-sub" id="k-ord-avg">‚Äî</div>
+          <div class="card-value c-red" id="k-ord">—</div>
+          <div class="card-sub" id="k-ord-avg">—</div>
           <div class="card-note">Despesas recorrentes</div>
         </div>
         <div class="card">
           <div class="card-label">Obras & Melhorias Acum.</div>
-          <div class="card-value c-yellow" id="k-inv">‚Äî</div>
-          <div class="card-sub" id="k-inv-avg">‚Äî</div>
-          <div class="card-note">Academia, seguran√ßa, decora√ß√£o‚Ä¶</div>
+          <div class="card-value c-yellow" id="k-inv">—</div>
+          <div class="card-sub" id="k-inv-avg">—</div>
+          <div class="card-note">Academia, segurança, decoração…</div>
         </div>
         <div class="card">
           <div class="card-label">Fundo de Reserva Atual</div>
-          <div class="card-value c-teal" id="k-reserva">‚Äî</div>
-          <div class="card-sub" id="k-reserva-sub">‚Äî</div>
-          <div class="card-note">Aplica√ß√£o financeira ‚Äî n√£o tocar</div>
+          <div class="card-value c-teal" id="k-reserva">—</div>
+          <div class="card-sub" id="k-reserva-sub">—</div>
+          <div class="card-note">Aplicação financeira — não tocar</div>
         </div>
       </div>
 
@@ -544,97 +724,97 @@
         <div class="banner-row">
           <div class="banner-block">
             <div class="banner-label">Resultado Custeio Acumulado</div>
-            <div class="banner-val" id="k-res-op">‚Äî</div>
-            <div class="banner-note">Receitas ‚àí despesas operacionais (sem obras)</div>
+            <div class="banner-val" id="k-res-op">—</div>
+            <div class="banner-note">Receitas − despesas operacionais (sem obras)</div>
           </div>
           <div class="banner-block">
             <div class="banner-label">Resultado Total Acumulado</div>
-            <div class="banner-val" id="k-res-total">‚Äî</div>
-            <div class="banner-note">Receitas ‚àí todas as despesas (com obras)</div>
+            <div class="banner-val" id="k-res-total">—</div>
+            <div class="banner-note">Receitas − todas as despesas (com obras)</div>
           </div>
           <div class="banner-block">
-            <div class="banner-label">Varia√ß√£o do Fundo de Reserva</div>
-            <div class="banner-val" id="k-var-reserva">‚Äî</div>
-            <div class="banner-note" id="k-var-reserva-note">‚Äî</div>
+            <div class="banner-label">Variação do Fundo de Reserva</div>
+            <div class="banner-val" id="k-var-reserva">—</div>
+            <div class="banner-note" id="k-var-reserva-note">—</div>
           </div>
         </div>
       </div>
 
-      <!-- Evolu√ß√£o mensal -->
-      <div class="sec mb16">Evolu√ß√£o Mensal</div>
+      <!-- Evolução mensal -->
+      <div class="sec mb16">Evolução Mensal</div>
 
       <div class="charts-grid cg-2 mb16">
         <div class="chart-card">
-          <div class="chart-title">Receita √ó Custeio √ó Obras & Melhorias</div>
+          <div class="chart-title">Receita × Custeio × Obras & Melhorias</div>
           <div class="chart-wrap ch220"><canvas id="chart-evolucao"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Resultado por M√™s (Custeio vs Total)</div>
+          <div class="chart-title">Resultado por Mês (Custeio vs Total)</div>
           <div class="chart-wrap ch220"><canvas id="chart-resultado"></canvas></div>
         </div>
       </div>
 
       <div class="charts-grid cg-2 mb24">
         <div class="chart-card">
-          <div class="chart-title">Fundo de Reserva ‚Äî Evolu√ß√£o (aplica√ß√£o financeira)</div>
+          <div class="chart-title">Fundo de Reserva — Evolução (aplicação financeira)</div>
           <div class="chart-wrap ch220"><canvas id="chart-reserva"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Caixa Operacional ‚Äî Evolu√ß√£o (contas correntes)</div>
+          <div class="chart-title">Caixa Operacional — Evolução (contas correntes)</div>
           <div class="chart-wrap ch220"><canvas id="chart-caixa-op"></canvas></div>
         </div>
       </div>
 
-      <!-- ‚îÄ‚îÄ Detalhe do M√™s ‚îÄ‚îÄ -->
-      <div class="sec mb16">Detalhe do M√™s ‚Äî <span id="sec-mes">‚Äî</span></div>
+      <!-- ── Detalhe do Mês ── -->
+      <div class="sec mb16">Detalhe do Mês — <span id="sec-mes">—</span></div>
 
       <!-- Caixas separadas -->
       <div class="caixa-grid">
         <div class="caixa-card">
-          <div class="cc-title"><span class="dot dot-teal"></span>Fundo de Reserva (Aplica√ß√£o Financeira)</div>
-          <div class="cc-total c-teal" id="cc-reserva-total">‚Äî</div>
+          <div class="cc-title"><span class="dot dot-teal"></span>Fundo de Reserva (Aplicação Financeira)</div>
+          <div class="cc-total c-teal" id="cc-reserva-total">—</div>
           <div class="cc-accounts" id="cc-reserva-contas"></div>
-          <div class="card-note" style="margin-top:8px">Reserva estrat√©gica ¬∑ n√£o utilizar para custeio corrente</div>
+          <div class="card-note" style="margin-top:8px">Reserva estratégica · não utilizar para custeio corrente</div>
         </div>
         <div class="caixa-card">
           <div class="cc-title"><span class="dot" id="cc-op-dot"></span>Caixa Operacional (Contas Correntes)</div>
-          <div class="cc-total" id="cc-op-total">‚Äî</div>
+          <div class="cc-total" id="cc-op-total">—</div>
           <div class="cc-accounts" id="cc-op-contas"></div>
-          <div class="card-note" style="margin-top:8px" id="cc-op-note">‚Äî</div>
+          <div class="card-note" style="margin-top:8px" id="cc-op-note">—</div>
         </div>
       </div>
 
-      <!-- KPIs do m√™s -->
+      <!-- KPIs do mês -->
       <div class="kpi-grid kpi-grid-4 mb24">
         <div class="card">
-          <div class="card-label">Receita do M√™s</div>
-          <div class="card-value c-blue" id="m-rec">‚Äî</div>
+          <div class="card-label">Receita do Mês</div>
+          <div class="card-value c-blue" id="m-rec">—</div>
           <div class="card-sub">Total arrecadado</div>
         </div>
         <div class="card">
           <div class="card-label">Custeio Operacional</div>
-          <div class="card-value c-red" id="m-ord">‚Äî</div>
+          <div class="card-value c-red" id="m-ord">—</div>
           <div class="card-sub">Despesas recorrentes</div>
         </div>
         <div class="card">
           <div class="card-label">Obras & Melhorias</div>
-          <div class="card-value c-yellow" id="m-inv">‚Äî</div>
-          <div class="card-sub">Gastos extraordin√°rios</div>
+          <div class="card-value c-yellow" id="m-inv">—</div>
+          <div class="card-sub">Gastos extraordinários</div>
         </div>
         <div class="card">
           <div class="card-label">Resultado Custeio</div>
-          <div class="card-value" id="m-res-op">‚Äî</div>
-          <div class="card-sub">Receita ‚àí custeio</div>
+          <div class="card-value" id="m-res-op">—</div>
+          <div class="card-sub">Receita − custeio</div>
         </div>
       </div>
 
-      <!-- Gr√°ficos do m√™s -->
+      <!-- Gráficos do mês -->
       <div class="charts-grid cg-2 mb24">
         <div class="chart-card">
-          <div class="chart-title">Despesas por Categoria ‚Äî <span id="lbl-desp">‚Äî</span></div>
+          <div class="chart-title">Despesas por Categoria — <span id="lbl-desp">—</span></div>
           <div class="tipo-row">
-            <button class="tipo-btn on-op" id="btn-op" onclick="toggleTipo('op')">üîµ Custeio</button>
-            <button class="tipo-btn on-ex" id="btn-ex" onclick="toggleTipo('ex')">üü° Obras & Melhorias</button>
+            <button class="tipo-btn on-op" id="btn-op" onclick="toggleTipo('op')">🔵 Custeio</button>
+            <button class="tipo-btn on-ex" id="btn-ex" onclick="toggleTipo('ex')">🟡 Obras & Melhorias</button>
           </div>
           <div class="legend-row">
             <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Custeio</div>
@@ -643,20 +823,20 @@
           <div class="chart-wrap ch220"><canvas id="chart-desp-cat"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Receitas por Categoria ‚Äî <span id="lbl-rec">‚Äî</span></div>
+          <div class="chart-title">Receitas por Categoria — <span id="lbl-rec">—</span></div>
           <div class="chart-wrap ch260"><canvas id="chart-rec-cat"></canvas></div>
         </div>
       </div>
 
-      <!-- Tabela do m√™s -->
-      <div class="sec mb16">Detalhamento de Despesas ‚Äî <span id="lbl-table">‚Äî</span></div>
+      <!-- Tabela do mês -->
+      <div class="sec mb16">Detalhamento de Despesas — <span id="lbl-table">—</span></div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Categoria</th>
               <th class="c">Tipo</th>
-              <th style="width:110px">Participa√ß√£o</th>
+              <th style="width:110px">Participação</th>
               <th class="r">Valor</th>
               <th class="r">% Total</th>
             </tr>
@@ -665,15 +845,15 @@
         </table>
       </div>
 
-      <!-- Ranking hist√≥rico -->
-      <div class="sec mb16">Ranking de Gastos ¬∑ Todo o Per√≠odo</div>
+      <!-- Ranking histórico -->
+      <div class="sec mb16">Ranking de Gastos · Todo o Período</div>
       <div class="charts-grid cg-3 mb24">
         <div class="chart-card">
-          <div class="chart-title">Top 12 Categorias ‚Äî Total Acumulado</div>
+          <div class="chart-title">Top 12 Categorias — Total Acumulado</div>
           <div class="chart-wrap ch260"><canvas id="chart-ranking"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">Composi√ß√£o por Tipo</div>
+          <div class="chart-title">Composição por Tipo</div>
           <div class="chart-wrap ch260"><canvas id="chart-tipo-pie"></canvas></div>
         </div>
       </div>
@@ -685,10 +865,10 @@
 </div><!-- /app -->
 
 <script>
-// ‚îÄ‚îÄ Configura√ß√£o ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Configuração ────────────────────────────────────────────────
 const JSON_URL = 'https://raw.githubusercontent.com/drwillsdias/contas-condo/main/dados/dados.json';
 
-// ‚îÄ‚îÄ Utilidades ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Utilidades ──────────────────────────────────────────────────
 const fmt  = v => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
 const pct  = v => v.toFixed(1).replace('.',',') + '%';
 const el   = id => document.getElementById(id);
@@ -703,7 +883,7 @@ const PALETTE = [
   '#0ea5e9','#e879f9','#fb923c','#a3e635','#34d399'
 ];
 
-// ‚îÄ‚îÄ Estado ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Estado ──────────────────────────────────────────────────────
 let dados    = null;
 let mesId    = null;
 let showOp   = true;  // custeio
@@ -711,10 +891,10 @@ let showEx   = true;  // obras/melhorias
 let charts   = {};
 let picker   = null;
 
-// ‚îÄ‚îÄ Classifica√ß√£o de contas banc√°rias ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
-// "Reserva" = aplica√ß√£o financeira; "Operacional" = corrente
+// ── Classificação de contas bancárias ───────────────────────────
+// "Reserva" = aplicação financeira; "Operacional" = corrente
 function isReservaAccount(name) {
-  return /APLICA[√áC][√ÉA]O|COTAS\s*CAPITAL/i.test(name);
+  return /APLICA[ÇC][ÃA]O|COTAS\s*CAPITAL/i.test(name);
 }
 
 function calcContas(mes) {
@@ -728,8 +908,8 @@ function calcContas(mes) {
   return { reserva, operacional, totReserva, totOp };
 }
 
-// ‚îÄ‚îÄ Classifica√ß√£o de despesas ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
-// "Obra/Melhoria" = come√ßa com INVESTIMENTO*; resto = custeio operacional
+// ── Classificação de despesas ───────────────────────────────────
+// "Obra/Melhoria" = começa com INVESTIMENTO*; resto = custeio operacional
 function tipoDesp(categoria) {
   return /^INVESTIMENTO/i.test(categoria) ? 'ex' : 'op';
 }
@@ -741,7 +921,7 @@ function despFiltradas(mes) {
     .sort((a,b) => b.val - a.val);
 }
 
-// ‚îÄ‚îÄ Charts ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Charts ──────────────────────────────────────────────────────
 function destroyChart(id) {
   if (charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
@@ -769,7 +949,7 @@ function defaultOpts(labelFmt) {
   };
 }
 
-// ‚îÄ‚îÄ Render global ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Render global ────────────────────────────────────────────────
 function renderGlobal() {
   const { meta, kpis, meses, ranking_despesas } = dados;
 
@@ -779,7 +959,7 @@ function renderGlobal() {
   el('hd-cidade').textContent  = meta.cidade;
   el('hd-unidades').textContent= meta.unidades;
   el('hd-gerado').textContent  = meta.gerado_em.split('-').reverse().join('/');
-  el('sec-periodo').textContent= `${meses[0].label} ‚Üí ${meses[meses.length-1].label}`;
+  el('sec-periodo').textContent= `${meses[0].label} → ${meses[meses.length-1].label}`;
 
   // Calcular acumulados derivados
   const totOrd = meses.reduce((s,m) => s + m.despesas_ordinarias, 0);
@@ -796,11 +976,11 @@ function renderGlobal() {
 
   // KPIs
   el('k-rec').textContent     = fmt(kpis.receitas_acumuladas);
-  el('k-rec-avg').textContent = `M√©dia: ${fmt(kpis.receita_media_mensal)}/m√™s`;
+  el('k-rec-avg').textContent = `Média: ${fmt(kpis.receita_media_mensal)}/mês`;
   el('k-ord').textContent     = fmt(totOrd);
-  el('k-ord-avg').textContent = `M√©dia: ${fmt(totOrd/meses.length)}/m√™s`;
+  el('k-ord-avg').textContent = `Média: ${fmt(totOrd/meses.length)}/mês`;
   el('k-inv').textContent     = fmt(totInv);
-  el('k-inv-avg').textContent = `M√©dia: ${fmt(totInv/meses.length)}/m√™s`;
+  el('k-inv-avg').textContent = `Média: ${fmt(totInv/meses.length)}/mês`;
   el('k-reserva').textContent = fmt(reservaAtual);
   el('k-reserva-sub').textContent = `Inicial: ${fmt(reservaInic)}`;
 
@@ -811,7 +991,7 @@ function renderGlobal() {
   el('k-res-total').textContent = fmt(resTotal);
   el('k-var-reserva').textContent = (varReserva >= 0 ? '+' : '') + fmt(varReserva);
   el('k-var-reserva-note').textContent =
-    `${fmt(reservaInic)} ‚Üí ${fmt(reservaAtual)} (${meses[0].label} ‚Üí ${meses[meses.length-1].label})`;
+    `${fmt(reservaInic)} → ${fmt(reservaAtual)} (${meses[0].label} → ${meses[meses.length-1].label})`;
 
   // Charts globais
   renderChartEvolucao(meses);
@@ -822,7 +1002,7 @@ function renderGlobal() {
   renderTipoPie(totOrd, totInv);
 }
 
-// ‚îÄ‚îÄ Chart evolu√ß√£o ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart evolução ───────────────────────────────────────────────
 function renderChartEvolucao(meses) {
   destroyChart('ev');
   charts['ev'] = new Chart(el('chart-evolucao'), {
@@ -839,7 +1019,7 @@ function renderChartEvolucao(meses) {
   });
 }
 
-// ‚îÄ‚îÄ Chart resultado ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart resultado ──────────────────────────────────────────────
 function renderChartResultado(meses, totOrd) {
   destroyChart('res');
   const resOp    = meses.map(m => m.receitas_total - m.despesas_ordinarias);
@@ -874,7 +1054,7 @@ function renderChartResultado(meses, totOrd) {
   });
 }
 
-// ‚îÄ‚îÄ Chart fundo de reserva ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart fundo de reserva ───────────────────────────────────────
 function renderChartReserva(meses) {
   destroyChart('reserva');
   const vals = meses.map(m => calcContas(m).totReserva);
@@ -901,7 +1081,7 @@ function renderChartReserva(meses) {
   });
 }
 
-// ‚îÄ‚îÄ Chart caixa operacional ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart caixa operacional ──────────────────────────────────────
 function renderChartCaixaOp(meses) {
   destroyChart('caixa-op');
   const vals = meses.map(m => calcContas(m).totOp);
@@ -920,14 +1100,14 @@ function renderChartCaixaOp(meses) {
   });
 }
 
-// ‚îÄ‚îÄ Chart ranking ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart ranking ────────────────────────────────────────────────
 function renderRanking(ranking) {
   destroyChart('ranking');
   const top12 = ranking.slice(0,12);
   charts['ranking'] = new Chart(el('chart-ranking'), {
     type: 'bar',
     data: {
-      labels: top12.map(r => r.categoria.length>26?r.categoria.slice(0,26)+'‚Ä¶':r.categoria),
+      labels: top12.map(r => r.categoria.length>26?r.categoria.slice(0,26)+'…':r.categoria),
       datasets:[{
         label:'Total',
         data: top12.map(r=>r.total),
@@ -947,7 +1127,7 @@ function renderRanking(ranking) {
   });
 }
 
-// ‚îÄ‚îÄ Chart tipo pie ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart tipo pie ───────────────────────────────────────────────
 function renderTipoPie(totOrd, totInv) {
   destroyChart('tipo-pie');
   charts['tipo-pie'] = new Chart(el('chart-tipo-pie'), {
@@ -974,14 +1154,14 @@ function renderTipoPie(totOrd, totInv) {
   });
 }
 
-// ‚îÄ‚îÄ Chart desp categoria (m√™s) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart desp categoria (mês) ───────────────────────────────────
 function renderChartDespCat(mes) {
   destroyChart('desp-cat');
   const arr = despFiltradas(mes).slice(0,14);
   charts['desp-cat'] = new Chart(el('chart-desp-cat'), {
     type:'bar',
     data:{
-      labels: arr.map(d=>d.cat.length>24?d.cat.slice(0,24)+'‚Ä¶':d.cat),
+      labels: arr.map(d=>d.cat.length>24?d.cat.slice(0,24)+'…':d.cat),
       datasets:[{
         label:'Valor',
         data: arr.map(d=>d.val),
@@ -1001,7 +1181,7 @@ function renderChartDespCat(mes) {
   });
 }
 
-// ‚îÄ‚îÄ Chart rec categoria (m√™s) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Chart rec categoria (mês) ────────────────────────────────────
 function renderChartRecCat(mes) {
   destroyChart('rec-cat');
   const arr = Object.entries(mes.receitas_categorias)
@@ -1031,7 +1211,7 @@ function renderChartRecCat(mes) {
   });
 }
 
-// ‚îÄ‚îÄ Render m√™s ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Render mês ───────────────────────────────────────────────────
 function renderMes() {
   const mes = dados.meses.find(m => m.periodo === mesId);
   if (!mes) return;
@@ -1059,7 +1239,7 @@ function renderMes() {
   el('ss-caixa-op').className = 'ss-value ' + (contas.totOp>=0?'c-green':'c-red');
   el('ss-reserva').textContent  = fmt(contas.totReserva);
 
-  // KPIs m√™s
+  // KPIs mês
   el('m-rec').textContent  = fmt(mes.receitas_total);
   el('m-ord').textContent  = fmt(mes.despesas_ordinarias);
   el('m-inv').textContent  = fmt(mes.despesas_investimentos);
@@ -1067,7 +1247,7 @@ function renderMes() {
   mResOp.textContent = fmt(resOp);
   mResOp.className   = 'card-value ' + (resOp>=0?'c-green':'c-red');
 
-  // Contas ‚Äî Fundo de Reserva
+  // Contas — Fundo de Reserva
   el('cc-reserva-total').textContent = fmt(contas.totReserva);
   const ccRes = el('cc-reserva-contas');
   ccRes.innerHTML = '';
@@ -1078,15 +1258,15 @@ function renderMes() {
     ccRes.appendChild(d);
   });
 
-  // Contas ‚Äî Caixa Operacional
+  // Contas — Caixa Operacional
   const ccOpTotal = el('cc-op-total');
   ccOpTotal.textContent = fmt(contas.totOp);
   ccOpTotal.className   = 'cc-total ' + (contas.totOp>=0?'c-green':'c-red');
   const ccOpDot = el('cc-op-dot');
   ccOpDot.className = 'dot ' + (contas.totOp>=0?'dot-green':'dot-red');
   el('cc-op-note').textContent = contas.totOp < 0
-    ? '‚ö†Ô∏è Saldo negativo ‚Äî coberto pelo fundo de reserva no mesmo banco'
-    : 'Saldo dispon√≠vel nas contas correntes';
+    ? '⚠️ Saldo negativo — coberto pelo fundo de reserva no mesmo banco'
+    : 'Saldo disponível nas contas correntes';
   const ccOp = el('cc-op-contas');
   ccOp.innerHTML = '';
   Object.entries(contas.operacional).forEach(([k,v]) => {
@@ -1096,13 +1276,13 @@ function renderMes() {
     ccOp.appendChild(d);
   });
 
-  // Charts m√™s
+  // Charts mês
   renderChartDespCat(mes);
   renderChartRecCat(mes);
   renderTabelaDespesas(mes);
 }
 
-// ‚îÄ‚îÄ Tabela despesas ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Tabela despesas ───────────────────────────────────────────────
 function renderTabelaDespesas(mes) {
   const arr   = despFiltradas(mes);
   const total = arr.reduce((s,d)=>s+d.val, 0);
@@ -1138,7 +1318,7 @@ function renderTabelaDespesas(mes) {
   tbody.appendChild(tr);
 }
 
-// ‚îÄ‚îÄ Toggle custeio/obras ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Toggle custeio/obras ─────────────────────────────────────────
 window.toggleTipo = function(tipo) {
   if (tipo==='op') { showOp=!showOp; el('btn-op').classList.toggle('on-op',showOp); }
   if (tipo==='ex') { showEx=!showEx; el('btn-ex').classList.toggle('on-ex',showEx); }
@@ -1146,7 +1326,7 @@ window.toggleTipo = function(tipo) {
   if (mes) { renderChartDespCat(mes); renderTabelaDespesas(mes); }
 };
 
-// ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê PICKER iOS ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+// ════════════════════════════════ PICKER iOS ════════════════════
 class DrumPicker {
   constructor(meses, onSelect) {
     this.meses    = meses;
@@ -1221,13 +1401,13 @@ class DrumPicker {
       const dist = Math.abs(i - cur);
       const isActive = dist < 0.5;
 
-      // Opacity: selecionado=1, ¬±1=0.45, ¬±2=0.2, mais longe=0.07
+      // Opacity: selecionado=1, ±1=0.45, ±2=0.2, mais longe=0.07
       const opacity = isActive ? 1
         : dist < 1.5 ? 0.45
         : dist < 2.5 ? 0.2
         : 0.07;
 
-      // Escala: selecionado=1.08, ¬±1=0.88, ¬±2=0.78, mais=0.7
+      // Escala: selecionado=1.08, ±1=0.88, ±2=0.78, mais=0.7
       const scale = isActive ? 1.08
         : dist < 1.5 ? 0.88
         : dist < 2.5 ? 0.78
@@ -1329,7 +1509,88 @@ class DrumPicker {
   }
 }
 
-// ‚îÄ‚îÄ Boot ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ════════════════════════════════ MOBILE PICKER ════════════════
+let mobileMeses = [];
+let mobilePicker = null;
+
+function buildMobileMonthBar(meses) {
+  mobileMeses = meses;
+  const scroll = el('mmb-scroll');
+  scroll.innerHTML = '';
+  meses.forEach((m, i) => {
+    const pill = document.createElement('div');
+    pill.className = 'mmb-pill';
+    pill.textContent = m.label;
+    pill.dataset.idx = i;
+    pill.addEventListener('click', () => {
+      selectMonthIdx(i);
+    });
+    scroll.appendChild(pill);
+  });
+
+  el('mmb-prev').addEventListener('click', () => {
+    const cur = mobilePicker ? mobilePicker.idx : meses.length - 1;
+    selectMonthIdx(Math.max(0, cur - 1));
+  });
+  el('mmb-next').addEventListener('click', () => {
+    const cur = mobilePicker ? mobilePicker.idx : 0;
+    selectMonthIdx(Math.min(meses.length - 1, cur + 1));
+  });
+
+  // Touch swipe on mobile kpi strip to change month
+  let swipeX0 = null;
+  const strip = el('mobile-kpi-strip');
+  strip.addEventListener('touchstart', e => { swipeX0 = e.touches[0].clientX; }, { passive: true });
+  strip.addEventListener('touchend', e => {
+    if (swipeX0 === null) return;
+    const dx = e.changedTouches[0].clientX - swipeX0;
+    swipeX0 = null;
+    if (Math.abs(dx) < 40) return;
+    const cur = mobilePicker ? mobilePicker.idx : meses.length - 1;
+    // Swipe left = next (more recent months to the right)
+    selectMonthIdx(dx < 0 ? Math.min(meses.length - 1, cur + 1) : Math.max(0, cur - 1));
+  }, { passive: true });
+}
+
+function syncMobilePicker(idx, animate) {
+  const pills = document.querySelectorAll('#mmb-scroll .mmb-pill');
+  pills.forEach((p, i) => p.classList.toggle('active', i === idx));
+  const pill = pills[idx];
+  if (!pill) return;
+  const doScroll = () => pill.scrollIntoView({ behavior: animate ? 'smooth' : 'auto', block: 'nearest', inline: 'center' });
+  // Use rAF + small timeout to ensure element is visible/laid out
+  requestAnimationFrame(() => setTimeout(doScroll, 0));
+}
+
+function syncMobileKpiStrip(mes) {
+  if (!mes) return;
+  const { totOp, totReserva } = calcContas(mes);
+  const resOp = mes.receitas_total - mes.despesas_ordinarias;
+  el('mks-receita').textContent = fmt(mes.receitas_total);
+  el('mks-ord').textContent     = fmt(mes.despesas_ordinarias);
+  const resEl = el('mks-res');
+  resEl.textContent = fmt(resOp);
+  resEl.className   = 'mks-value ' + (resOp >= 0 ? 'c-green' : 'c-red');
+  const cxEl = el('mks-caixa');
+  cxEl.textContent = fmt(totOp);
+  cxEl.className   = 'mks-value ' + (totOp >= 0 ? 'c-blue' : 'c-red');
+  el('mks-reserva').textContent = fmt(totReserva);
+}
+
+// ── Shared month select (syncs both desktop drum + mobile bar) ────
+function selectMonthIdx(idx) {
+  if (!dados) return;
+  mesId = dados.meses[idx].periodo;
+  // Sync drum picker (desktop)
+  if (mobilePicker) mobilePicker.goTo(idx, true);
+  // Sync mobile bar (animate=true for user interactions)
+  syncMobilePicker(idx, true);
+  // Sync kpi strip
+  syncMobileKpiStrip(dados.meses[idx]);
+  renderMes();
+}
+
+// ── Boot ─────────────────────────────────────────────────────────
 async function boot() {
   try {
     const res = await fetch(JSON_URL);
@@ -1343,13 +1604,23 @@ async function boot() {
 
     renderGlobal();
 
-    picker = new DrumPicker(dados.meses, idx => {
+    // Build mobile month bar
+    buildMobileMonthBar(dados.meses);
+    const lastIdx = dados.meses.length - 1;
+    syncMobilePicker(lastIdx, false); // no animation on initial load
+    syncMobileKpiStrip(dados.meses[lastIdx]);
+
+    // Desktop drum picker
+    mobilePicker = new DrumPicker(dados.meses, idx => {
       mesId = dados.meses[idx].periodo;
+      syncMobilePicker(idx, true);
+      syncMobileKpiStrip(dados.meses[idx]);
       renderMes();
     });
+    picker = mobilePicker;
 
     el('footer-txt').textContent =
-      `${dados.meta.condominio} ¬∑ Painel Financeiro ¬∑ Gerado em ${dados.meta.gerado_em}`;
+      `${dados.meta.condominio} · Painel Financeiro · Gerado em ${dados.meta.gerado_em}`;
 
   } catch(err) {
     el('loading').innerHTML = `
