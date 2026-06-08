@@ -478,6 +478,21 @@
     }
     .mmb-pill:active { opacity: .7; }
 
+    /* ── Mobile KPI sep ── */
+    .mks-sep {
+      flex-shrink: 0;
+      width: 1px;
+      min-width: 1px;
+      background: var(--border);
+      margin: 8px 2px;
+      padding: 0;
+    }
+
+    /* ── Resumo do Mês cards ── */
+    .rm-card { border-top: 2px solid transparent; }
+    .rm-resultado { border-top-color: transparent; } /* set by JS */
+    .rm-caixa     { border-top-color: transparent; }
+
     /* ═══════════════════════════════════════════ MOBILE KPI STRIP ══ */
     .mobile-kpi-strip {
       display: none;
@@ -613,9 +628,19 @@
         <div class="mks-value c-red" id="mks-ord">—</div>
       </div>
       <div class="mks-card">
-        <div class="mks-label">Resultado</div>
+        <div class="mks-label">Obras & Mel.</div>
+        <div class="mks-value c-yellow" id="mks-inv">—</div>
+      </div>
+      <div class="mks-card mks-sep"></div>
+      <div class="mks-card">
+        <div class="mks-label">Res. Custeio</div>
         <div class="mks-value" id="mks-res">—</div>
       </div>
+      <div class="mks-card">
+        <div class="mks-label">Res. Total</div>
+        <div class="mks-value" id="mks-res-total">—</div>
+      </div>
+      <div class="mks-card mks-sep"></div>
       <div class="mks-card">
         <div class="mks-label">Caixa Op.</div>
         <div class="mks-value" id="mks-caixa">—</div>
@@ -682,60 +707,69 @@
     <!-- ════ MAIN ════ -->
     <main class="main">
 
-      <!-- ── Visão Geral ── -->
-      <div class="sec mb16">Visão Geral do Período · <span id="sec-periodo">—</span></div>
+      <!-- ── Resumo do Mês (números fáceis) ── -->
+      <div class="sec mb16">Resumo do Mês · <span id="sec-mes-titulo" class="c-accent">—</span></div>
 
-      <!-- Explainer -->
-      <div class="explainer">
-        <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condomínio.
-        O <strong>resultado total</strong> inclui obras e melhorias pagas no período (academia, segurança, decoração etc.) — esses são gastos extraordinários, não "investimentos financeiros".
-        O <strong>Fundo de Reserva</strong> (aplicação financeira no Sicredi) é uma poupança do condomínio que <em>não deve</em> ser usada para custeio corrente.
-      </div>
-
-      <!-- KPIs globais -->
-      <div class="kpi-grid kpi-grid-4 mb24">
-        <div class="card">
-          <div class="card-label">Receitas Acumuladas</div>
-          <div class="card-value c-blue" id="k-rec">—</div>
-          <div class="card-sub" id="k-rec-avg">—</div>
+      <div class="kpi-grid kpi-grid-4 mb16">
+        <div class="card rm-card">
+          <div class="card-label">Receita</div>
+          <div class="card-value c-blue" id="mr-receita">—</div>
+          <div class="card-sub">Arrecadação do mês</div>
         </div>
-        <div class="card">
-          <div class="card-label">Custeio Operacional Acum.</div>
-          <div class="card-value c-red" id="k-ord">—</div>
-          <div class="card-sub" id="k-ord-avg">—</div>
-          <div class="card-note">Despesas recorrentes</div>
+        <div class="card rm-card">
+          <div class="card-label">Desp. Custeio</div>
+          <div class="card-value c-red" id="mr-ord">—</div>
+          <div class="card-sub">Despesas recorrentes</div>
         </div>
-        <div class="card">
-          <div class="card-label">Obras & Melhorias Acum.</div>
-          <div class="card-value c-yellow" id="k-inv">—</div>
-          <div class="card-sub" id="k-inv-avg">—</div>
-          <div class="card-note">Academia, segurança, decoração…</div>
+        <div class="card rm-card">
+          <div class="card-label">Obras & Melhorias</div>
+          <div class="card-value c-yellow" id="mr-inv">—</div>
+          <div class="card-sub">Gastos extraordinários</div>
         </div>
-        <div class="card">
-          <div class="card-label">Fundo de Reserva Atual</div>
-          <div class="card-value c-teal" id="k-reserva">—</div>
-          <div class="card-sub" id="k-reserva-sub">—</div>
-          <div class="card-note">Aplicação financeira — não tocar</div>
+        <div class="card rm-card">
+          <div class="card-label">Fundo de Reserva</div>
+          <div class="card-value c-teal" id="mr-reserva">—</div>
+          <div class="card-sub">Aplicação financeira</div>
         </div>
       </div>
 
-      <!-- Banners de resultado -->
-      <div id="banner-op" class="banner warn mb16">
-        <div class="banner-row">
-          <div class="banner-block">
-            <div class="banner-label">Resultado Custeio Acumulado</div>
-            <div class="banner-val" id="k-res-op">—</div>
-            <div class="banner-note">Receitas − despesas operacionais (sem obras)</div>
-          </div>
-          <div class="banner-block">
-            <div class="banner-label">Resultado Total Acumulado</div>
-            <div class="banner-val" id="k-res-total">—</div>
-            <div class="banner-note">Receitas − todas as despesas (com obras)</div>
-          </div>
-          <div class="banner-block">
-            <div class="banner-label">Variação do Fundo de Reserva</div>
-            <div class="banner-val" id="k-var-reserva">—</div>
-            <div class="banner-note" id="k-var-reserva-note">—</div>
+      <div class="kpi-grid kpi-grid-3 mb24">
+        <div class="card rm-card rm-resultado" id="rm-card-res-op">
+          <div class="card-label">Resultado Custeio</div>
+          <div class="card-value" id="mr-res-op">—</div>
+          <div class="card-sub">Receita − custeio operacional</div>
+        </div>
+        <div class="card rm-card rm-resultado" id="rm-card-res-total">
+          <div class="card-label">Resultado Total</div>
+          <div class="card-value" id="mr-res-total">—</div>
+          <div class="card-sub">Receita − tudo (incl. obras)</div>
+        </div>
+        <div class="card rm-card rm-caixa" id="rm-card-caixa">
+          <div class="card-label">Caixa Operacional</div>
+          <div class="card-value" id="mr-caixa-op">—</div>
+          <div class="card-sub">Saldo nas contas correntes</div>
+        </div>
+      </div>
+
+      <!-- ── Seção de acumulados — oculta (dados preservados para uso futuro) ── -->
+      <div style="display:none">
+        <div class="sec mb16">Visão Geral do Período · <span id="sec-periodo">—</span></div>
+        <div class="explainer">
+          <strong>Como ler este painel:</strong> O <strong>resultado operacional</strong> mostra se as receitas mensais cobrem o custeio corrente do condomínio.
+          O <strong>resultado total</strong> inclui obras e melhorias pagas no período (academia, segurança, decoração etc.) — esses são gastos extraordinários, não "investimentos financeiros".
+          O <strong>Fundo de Reserva</strong> (aplicação financeira no Sicredi) é uma poupança do condomínio que <em>não deve</em> ser usada para custeio corrente.
+        </div>
+        <div class="kpi-grid kpi-grid-4 mb24">
+          <div class="card"><div class="card-label">Receitas Acumuladas</div><div class="card-value c-blue" id="k-rec">—</div><div class="card-sub" id="k-rec-avg">—</div></div>
+          <div class="card"><div class="card-label">Custeio Operacional Acum.</div><div class="card-value c-red" id="k-ord">—</div><div class="card-sub" id="k-ord-avg">—</div></div>
+          <div class="card"><div class="card-label">Obras & Melhorias Acum.</div><div class="card-value c-yellow" id="k-inv">—</div><div class="card-sub" id="k-inv-avg">—</div></div>
+          <div class="card"><div class="card-label">Fundo de Reserva Atual</div><div class="card-value c-teal" id="k-reserva">—</div><div class="card-sub" id="k-reserva-sub">—</div></div>
+        </div>
+        <div id="banner-op" class="banner warn mb16">
+          <div class="banner-row">
+            <div class="banner-block"><div class="banner-label">Resultado Custeio Acumulado</div><div class="banner-val" id="k-res-op">—</div><div class="banner-note">Receitas − despesas operacionais (sem obras)</div></div>
+            <div class="banner-block"><div class="banner-label">Resultado Total Acumulado</div><div class="banner-val" id="k-res-total">—</div><div class="banner-note">Receitas − todas as despesas (com obras)</div></div>
+            <div class="banner-block"><div class="banner-label">Variação do Fundo de Reserva</div><div class="banner-val" id="k-var-reserva">—</div><div class="banner-note" id="k-var-reserva-note">—</div></div>
           </div>
         </div>
       </div>
@@ -1225,6 +1259,9 @@ function renderMes() {
   const resTotal = mes.resultado;
   const contas   = calcContas(mes);
 
+  // Resumo do Mês (novos cards no topo do conteúdo principal)
+  renderResumoMes(mes);
+
   // Sidebar quick stats
   el('ss-receita').textContent  = fmt(mes.receitas_total);
   el('ss-ord').textContent      = fmt(mes.despesas_ordinarias);
@@ -1565,16 +1602,58 @@ function syncMobilePicker(idx, animate) {
 function syncMobileKpiStrip(mes) {
   if (!mes) return;
   const { totOp, totReserva } = calcContas(mes);
-  const resOp = mes.receitas_total - mes.despesas_ordinarias;
+  const resOp    = mes.receitas_total - mes.despesas_ordinarias;
+  const resTotal = mes.resultado;
+
   el('mks-receita').textContent = fmt(mes.receitas_total);
   el('mks-ord').textContent     = fmt(mes.despesas_ordinarias);
+  el('mks-inv').textContent     = fmt(mes.despesas_investimentos);
+
   const resEl = el('mks-res');
   resEl.textContent = fmt(resOp);
   resEl.className   = 'mks-value ' + (resOp >= 0 ? 'c-green' : 'c-red');
+
+  const resTEl = el('mks-res-total');
+  resTEl.textContent = fmt(resTotal);
+  resTEl.className   = 'mks-value ' + (resTotal >= 0 ? 'c-green' : 'c-red');
+
   const cxEl = el('mks-caixa');
   cxEl.textContent = fmt(totOp);
   cxEl.className   = 'mks-value ' + (totOp >= 0 ? 'c-blue' : 'c-red');
+
   el('mks-reserva').textContent = fmt(totReserva);
+}
+
+function renderResumoMes(mes) {
+  if (!mes) return;
+  const { totOp, totReserva } = calcContas(mes);
+  const resOp    = mes.receitas_total - mes.despesas_ordinarias;
+  const resTotal = mes.resultado;
+
+  // Título da seção
+  el('sec-mes-titulo').textContent = mes.label;
+
+  // Top row: 4 números
+  el('mr-receita').textContent  = fmt(mes.receitas_total);
+  el('mr-ord').textContent      = fmt(mes.despesas_ordinarias);
+  el('mr-inv').textContent      = fmt(mes.despesas_investimentos);
+  el('mr-reserva').textContent  = fmt(totReserva);
+
+  // Bottom row: 3 resultados com cor
+  const resOpEl = el('mr-res-op');
+  resOpEl.textContent = fmt(resOp);
+  resOpEl.className   = 'card-value ' + (resOp >= 0 ? 'c-green' : 'c-red');
+  el('rm-card-res-op').style.borderTopColor = resOp >= 0 ? 'var(--green)' : 'var(--red)';
+
+  const resTotEl = el('mr-res-total');
+  resTotEl.textContent = fmt(resTotal);
+  resTotEl.className   = 'card-value ' + (resTotal >= 0 ? 'c-green' : 'c-red');
+  el('rm-card-res-total').style.borderTopColor = resTotal >= 0 ? 'var(--green)' : 'var(--red)';
+
+  const cxEl = el('mr-caixa-op');
+  cxEl.textContent = fmt(totOp);
+  cxEl.className   = 'card-value ' + (totOp >= 0 ? 'c-blue' : 'c-red');
+  el('rm-card-caixa').style.borderTopColor = totOp >= 0 ? 'var(--blue)' : 'var(--red)';
 }
 
 // ── Shared month select (syncs both desktop drum + mobile bar) ────
